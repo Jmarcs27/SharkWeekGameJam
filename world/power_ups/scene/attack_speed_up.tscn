@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://beaoi6sc745e1"]
+[gd_scene load_steps=4 format=3 uid="uid://b5ekkp8gq7gas"]
 
-[ext_resource type="Script" uid="uid://bxitedyhcy3n2" path="res://world/double_shot.gd" id="1_vae2s"]
+[ext_resource type="Script" uid="uid://cg6cajo1nois6" path="res://world/power_ups/script/attack_speed_up.gd" id="1_1vgnw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h4fau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vae2s"]
 size = Vector2(43, 44)
 
-[node name="DoubleShot" type="StaticBody2D"]
-script = ExtResource("1_vae2s")
+[node name="AttackSpeedUp" type="StaticBody2D"]
+script = ExtResource("1_1vgnw")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

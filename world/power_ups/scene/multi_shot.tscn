@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://crxfltdoynb24"]
+[gd_scene load_steps=4 format=3 uid="uid://beaoi6sc745e1"]
 
-[ext_resource type="Script" uid="uid://c4ddobkvp3v4k" path="res://world/move_speed_up.gd" id="1_twstw"]
+[ext_resource type="Script" uid="uid://bxitedyhcy3n2" path="res://world/power_ups/script/multi_shot.gd" id="1_vfysa"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h4fau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vae2s"]
 size = Vector2(43, 44)
 
-[node name="MoveSpeedUp" type="StaticBody2D"]
-script = ExtResource("1_twstw")
+[node name="MultiShot" type="StaticBody2D"]
+script = ExtResource("1_vfysa")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

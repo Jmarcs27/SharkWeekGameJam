@@ -9,7 +9,6 @@
 [node name="Shork" parent="." instance=ExtResource("1_vn6gr")]
 position = Vector2(232, 246)
 scale = Vector2(0.5, 0.5)
-speed = 300
 
 [node name="scuba_boss" type="Node2D" parent="."]
 script = ExtResource("2_5v6lt")

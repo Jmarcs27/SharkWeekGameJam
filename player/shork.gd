@@ -9,9 +9,8 @@ extends Area2D
 var screenSize # Size of the game window.
 var projectileScene
 var distanceToMouth = 110
-var doubleShot = false
-var multiShotIter = 0;
-var burstDelay = 0.05;
+var burstDelay = 0.05
+var multiShotIter = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,20 +30,26 @@ func _physics_process(delta: float):
 		velocity.y -= 1
 	if Input.is_action_pressed("attack") && $AtkCooldown.is_stopped():
 		print("Calling Shoot")
-		shoot()
+		shoot(false)
 	if Input.is_action_just_pressed("bomb"):
 		use_bomb()
 		
 	position += velocity * delta * moveSpeed
 	position = position.clamp(Vector2.ZERO, screenSize)
 
-
-func shoot():
-	for i in range(multiShotStacks):
-		print(i)
-		$MultiAttackDelay.start(burstDelay * i)
+func shoot(multiShot: bool):
+	var currentPosition = $".".get_global_position()
+	var newProjectile = projectileScene.instantiate()
+	newProjectile.position = $ProjectileSpawn.global_position
+	get_parent().add_child(newProjectile)
+	multiShotIter += 1
+	if(multiShotIter < multiShotStacks):
+		$MultiAttackDelay.start(burstDelay)
+	else:
+		multiShotIter = 0
 	$AtkCooldown.start()
-	
+
+
 func use_bomb():
 	if $BombCooldown.is_stopped() && bombCount > 0:
 		print("BOOM ERRYTHING DEAD")
@@ -54,10 +59,17 @@ func use_bomb():
 
 func _on_body_entered(body: Node2D) -> void:
 	print("Touched ", body.name) 
+	if body is PowerUp:
+		grant_power_up(body)
+	else:
+		take_damage()
+
+
+func grant_power_up(body: PowerUp):
 	var entityName = body.name
 	match entityName:
-		"DoubleShot":
-			doubleShot = true;
+		"MultiShot":
+			multiShotStacks += 1
 			body.hide();
 			body.set_deferred("disabled", true)
 		"MoveSpeedUp":
@@ -70,9 +82,15 @@ func _on_body_entered(body: Node2D) -> void:
 			body.set_deferred("disabled", true)
 
 
-func _on_multi_attack_delay_timeout() -> void:
-	print("BANG")
-	var currentPosition = $".".get_global_position()
-	var newProjectile = projectileScene.instantiate()
-	newProjectile.position = Vector2(currentPosition[0] + distanceToMouth, currentPosition[1])
-	get_parent().add_child(newProjectile)
+func take_damage():
+	if $DamageTimer.is_stopped():
+		print("Ouch")
+		hitPoints -= 1
+		$DamageTimer.start()
+		if hitPoints <= 0:
+			print("You Deadge!")
+			pass #Replace with Game Over
+
+
+func _attack_delay_timeout() -> void:
+	shoot(true)
