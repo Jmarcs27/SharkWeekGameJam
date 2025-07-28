@@ -1,5 +1,7 @@
 extends Area2D
 
+signal damage
+
 @export var speed = 1600 # How fast the player will move (pixels/sec).
 var screenSize # Size of the game window.
 
@@ -9,10 +11,16 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	
 	var velocity = Vector2.ZERO # The player's movement vector.
 	velocity.x += 1
 	
 	position += velocity * delta * speed
 	position = position.clamp(Vector2.ZERO, screenSize)
+	if position.x >= screenSize.x:
+		queue_free()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	queue_free()

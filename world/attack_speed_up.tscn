@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5ekkp8gq7gas"]
+
+[ext_resource type="Script" uid="uid://cg6cajo1nois6" path="res://world/attack_speed_up.gd" id="1_j8fb4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h4fau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vae2s"]
+size = Vector2(43, 44)
+
+[node name="AttackSpeedUp" type="StaticBody2D"]
+script = ExtResource("1_j8fb4")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(42, 42)
+texture = SubResource("PlaceholderTexture2D_h4fau")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vae2s")
