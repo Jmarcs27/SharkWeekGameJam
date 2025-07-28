@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/main_scene="uid://beaoi6sc745e1"
+window/canvas_textures/default_texture_filter=1
+
+[global_group]
+
+Bad="Something that hurts the player"
 
 [input]
 
@@ -60,5 +65,6 @@ bomb={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
