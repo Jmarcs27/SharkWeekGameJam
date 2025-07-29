@@ -7,11 +7,13 @@
 [node name="TestLevel" type="Node2D"]
 
 [node name="Shork" parent="." instance=ExtResource("1_vn6gr")]
-position = Vector2(232, 246)
+position = Vector2(218, 104)
 scale = Vector2(0.5, 0.5)
 
 [node name="scuba_boss" type="Node2D" parent="."]
 script = ExtResource("2_5v6lt")
+
+[node name="Harpoons" type="Node2D" parent="scuba_boss"]
 
 [node name="boss_location" type="Area2D" parent="scuba_boss"]
 collision_layer = 128
@@ -25,6 +27,49 @@ polygon = PackedVector2Array(-1, 0, -36, 0, -52, 19, -83, 40, -104, 93, -132, 96
 position = Vector2(566, 192)
 texture = ExtResource("2_wb2ks")
 
+[node name="Timer" type="Timer" parent="scuba_boss"]
+wait_time = 7.0
+
+[node name="HarpoonLocations" type="Node2D" parent="scuba_boss"]
+
+[node name="Node2D" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(608, 75)
+
+[node name="Node2D2" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(654, 37)
+
+[node name="Node2D3" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(605, 94)
+
+[node name="Node2D4" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(600, 259)
+
+[node name="Node2D5" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(631, 305)
+
+[node name="Node2D6" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(612, 348)
+
+[node name="Node2D7" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(576, 126)
+
+[node name="Node2D8" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(578, 209)
+
+[node name="Node2D9" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(633, 50)
+
+[node name="Node2D10" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(578, 167)
+
+[node name="Node2D11" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(629, 332)
+
+[node name="Node2D12" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(601, 236)
+
+[node name="Node2D13" type="Node2D" parent="scuba_boss/HarpoonLocations"]
+position = Vector2(580, 184)
+
 [connection signal="area_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_collision_zone_area_entered"]
-[connection signal="area_shape_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_area_2d_area_shape_entered"]
-[connection signal="body_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_collision_zone_body_entered"]
+[connection signal="timeout" from="scuba_boss/Timer" to="scuba_boss" method="_on_timer_timeout"]

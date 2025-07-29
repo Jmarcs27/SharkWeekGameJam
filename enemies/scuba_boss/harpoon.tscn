@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://mbbx5sn78dan"]
+
+[ext_resource type="Script" uid="uid://dr1xsxwtr460g" path="res://enemies/scuba_boss/harpoon.gd" id="1_qf36y"]
+[ext_resource type="Texture2D" uid="uid://0nlacycnwo5g" path="res://assets/scuba_boss/Harpoon_Spear_2.png" id="2_io6xj"]
+[ext_resource type="Texture2D" uid="uid://ci4roua7yoguf" path="res://assets/scuba_boss/Harpoon_Unloaded.png" id="3_7p037"]
+
+[node name="Harpoon" type="Node2D" groups=["Bad"]]
+script = ExtResource("1_qf36y")
+
+[node name="BoltSprite" type="Sprite2D" parent="."]
+auto_translate_mode = 2
+position = Vector2(0.136902, 0.000640869)
+scale = Vector2(-1, 1)
+texture = ExtResource("2_io6xj")
+offset = Vector2(25.1369, -9.00064)
+
+[node name="Area2D" type="Area2D" parent="BoltSprite" groups=["Bad"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoltSprite/Area2D"]
+position = Vector2(42.1369, -9.00064)
+polygon = PackedVector2Array(0, 0, 0, 2, 1, 2, 1, 1, 3, 1, 3, 0, 5, 0, 5, 0, 5, -1, 3, -1, 3, -2, 1, -2, 1, -3, 0, -3, 0, -1, -1, -1, -1, 0)
+
+[node name="HarpoonSprite" type="Sprite2D" parent="."]
+scale = Vector2(-1, 1)
+texture = ExtResource("3_7p037")
