@@ -24,7 +24,7 @@ func _physics_process(delta: float):
 		boltDir = (player.global_position - bolt.global_position).normalized()
 	pass
 	
-func prepare_shot():
+func prepare_shot() -> void:
 	aiming = true # Enables player tracking
 	# Uses tween to animate the harpoons appearing from behind the boss
 	var tween = create_tween()
@@ -35,7 +35,7 @@ func prepare_shot():
 	reload()
 	
 # Hides the harpoon for cleanup
-func reload():
+func reload() -> void:
 	var tween = create_tween()
 	tween.tween_property(harpoon, "position", harpoon.position + Vector2(84, 0), 2)
 	
