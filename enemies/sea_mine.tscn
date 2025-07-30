@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkkkgvf6n7wp4"]
+[gd_scene load_steps=5 format=3 uid="uid://dkkkgvf6n7wp4"]
 
 [ext_resource type="Script" uid="uid://xarfk76hyetb" path="res://enemies/sea_mine.gd" id="1_vng0f"]
 [ext_resource type="Texture2D" uid="uid://dk7sk2q2v5i8f" path="res://assets/Sea_Mine.png" id="2_cykwi"]
@@ -6,8 +6,13 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ifd5"]
 radius = 91.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vng0f"]
+radius = 91.0
+
 [node name="sea_mine" type="StaticBody2D" groups=["Bad"]]
 scale = Vector2(0.1, 0.1)
+collision_layer = 129
+collision_mask = 129
 script = ExtResource("1_vng0f")
 metadata/_edit_group_ = true
 
@@ -19,3 +24,13 @@ texture = ExtResource("2_cykwi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Bad"]]
 position = Vector2(3, 5)
 shape = SubResource("CircleShape2D_8ifd5")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(3, 5)
+shape = SubResource("CircleShape2D_vng0f")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
