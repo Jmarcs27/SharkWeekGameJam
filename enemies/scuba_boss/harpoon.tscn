@@ -14,7 +14,7 @@ scale = Vector2(-1, 1)
 texture = ExtResource("2_io6xj")
 offset = Vector2(25.1369, -9.00064)
 
-[node name="Area2D" type="Area2D" parent="BoltSprite" groups=["Bad"]]
+[node name="Area2D" type="CharacterBody2D" parent="BoltSprite" groups=["Bad"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoltSprite/Area2D"]
 position = Vector2(42.1369, -9.00064)

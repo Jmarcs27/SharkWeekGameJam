@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kdryh"]
 size = Vector2(43, 44)
 
-[node name="PowerUp" type="StaticBody2D"]
+[node name="PowerUp" type="StaticBody2D" groups=["Good"]]
 script = ExtResource("1_kw3yb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -15,5 +15,5 @@ position = Vector2(1.90735e-06, 1.90735e-06)
 scale = Vector2(42, 42)
 texture = SubResource("PlaceholderTexture2D_vf8wm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Good"]]
 shape = SubResource("RectangleShape2D_kdryh")

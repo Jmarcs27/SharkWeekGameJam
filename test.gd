@@ -5,7 +5,6 @@ var shork
 var multiShotPwUp
 var moveSpeedPwUp
 var atkSpeedPwUp
-var testEnemy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +12,6 @@ func _ready() -> void:
 	multiShotPwUp = preload("res://world/power_ups/scene/multi_shot.tscn")
 	moveSpeedPwUp = preload("res://world/power_ups/scene/move_speed_up.tscn")
 	atkSpeedPwUp = preload("res://world/power_ups/scene/attack_speed_up.tscn")
-	testEnemy = preload("res://enemies/test_enemy.tscn")
 	
 	var newShork = shork.instantiate()
 	newShork.position = Vector2(25, 250)
@@ -27,11 +25,7 @@ func _ready() -> void:
 	var atkSpeedUp = atkSpeedPwUp.instantiate()
 	atkSpeedUp.position = Vector2(1000, 200)
 	
-	var testEnemyDummy = testEnemy.instantiate()
-	testEnemyDummy.position = Vector2(250, 250)
-	
 	add_child(newShork)
 	add_child(multiShot)
 	add_child(moveSpeedUp)
 	add_child(atkSpeedUp)
-	add_child(testEnemyDummy)

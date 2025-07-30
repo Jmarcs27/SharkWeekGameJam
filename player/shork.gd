@@ -59,9 +59,9 @@ func use_bomb():
 
 func _on_body_entered(body: Node2D) -> void:
 	print("Touched ", body.name) 
-	if body is PowerUp:
+	if body.is_in_group("Good"):
 		grant_power_up(body)
-	else:
+	elif body.is_in_group("Bad"):
 		take_damage()
 
 
@@ -89,7 +89,7 @@ func take_damage():
 		$DamageTimer.start()
 		if hitPoints <= 0:
 			print("You Deadge!")
-			pass #Replace with Game Over
+			$Sprite2D.flip_v = true
 
 
 func _attack_delay_timeout() -> void:
