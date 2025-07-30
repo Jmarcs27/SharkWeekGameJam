@@ -9,10 +9,12 @@ radius = 91.0
 
 [node name="debris" type="StaticBody2D" groups=["Bad"]]
 scale = Vector2(0.1, 0.1)
+collision_layer = 129
+collision_mask = 129
 script = ExtResource("1_5nslg")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="." groups=["Bad"]]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(5, 5)
 scale = Vector2(150, 150)
 texture = SubResource("PlaceholderTexture2D_5nslg")
@@ -20,3 +22,13 @@ texture = SubResource("PlaceholderTexture2D_5nslg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Bad"]]
 position = Vector2(3, 5)
 shape = SubResource("CircleShape2D_8ifd5")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Bad"]]
+position = Vector2(3, 5)
+shape = SubResource("CircleShape2D_8ifd5")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
