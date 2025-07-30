@@ -72,16 +72,17 @@ position = Vector2(601, 236)
 [node name="Node2D13" type="Node2D" parent="scuba_boss/HarpoonLocations"]
 position = Vector2(580, 184)
 
-[node name="Laser" type="Node2D" parent="scuba_boss"]
+[node name="Laser" type="Node2D" parent="scuba_boss" groups=["Bad"]]
 script = ExtResource("4_5v6lt")
 isCasting = true
 
-[node name="RayCast2D" type="RayCast2D" parent="scuba_boss/Laser"]
+[node name="RayCast2D" type="RayCast2D" parent="scuba_boss/Laser" groups=["Bad"]]
 target_position = Vector2(500, 0)
 collision_mask = 129
 collide_with_areas = true
 
-[node name="Line2D" type="Line2D" parent="scuba_boss/Laser"]
+[node name="Line2D" type="Line2D" parent="scuba_boss/Laser" groups=["Bad"]]
+visible = false
 points = PackedVector2Array(0, 0, 500, 0)
 begin_cap_mode = 2
 end_cap_mode = 2
