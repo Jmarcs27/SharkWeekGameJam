@@ -2,22 +2,20 @@ extends Node2D
 # Followed GDQuest "Make an IMPRESSIVE 2D LASER Beam in Godot" video on YoutTube
 
 @export var isCasting := false: set = set_casting
-@export var color = Color.WHITE: set = set_color
+@export var color = Color.MAROON: set = set_color
 @export var growthTime := 0.1
 @onready var line2d: Line2D = $Line2D
 @onready var laser: RayCast2D = $RayCast2D
 @onready var lineWidth := line2d.width
 
 var tween : Tween = null
-var rayMaxLength = 500
+var rayMaxLength = 750
 var raySpeed = 100
 
 func _ready():
 	laser.collide_with_areas = true
-	if(line2d == null):
-		print("Null")
-	line2d.visible = false
-	set_casting(true)
+	set_casting(isCasting)
+	set_color(color)
 
 func _physics_process(delta: float):
 	# Moves the ray forward while active

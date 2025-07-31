@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://behwepdltap4a"]
+
+[ext_resource type="Script" uid="uid://tgt67con137c" path="res://enemies/scuba_boss/laser.gd" id="1_46tvg"]
+
+[node name="Laser" type="Node2D" groups=["Bad"]]
+script = ExtResource("1_46tvg")
+isCasting = true
+
+[node name="RayCast2D" type="RayCast2D" parent="." groups=["Bad"]]
+target_position = Vector2(700, 0)
+collision_mask = 129
+collide_with_areas = true
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+scale = Vector2(1.00045, 1)
+points = PackedVector2Array(0, 0, 0, 0)
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
