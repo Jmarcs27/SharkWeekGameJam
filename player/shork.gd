@@ -50,11 +50,12 @@ func shoot():
 		multiShotIter = 0
 	$AtkCooldown.start(attackSpeed)
 
-# TODO
 func use_bomb():
 	if $BombCooldown.is_stopped() && bombCount > 0:
-		print("BOOM ERRYTHING DEAD")
 		bombCount -= 1
+		for child in get_parent().get_children():
+			if child.is_in_group("Bad"):
+				child.queue_free()
 		$BombCooldown.start();
 
 
