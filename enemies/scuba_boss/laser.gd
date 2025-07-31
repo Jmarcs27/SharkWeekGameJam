@@ -15,7 +15,9 @@ var raySpeed = 100
 
 func _ready():
 	laser.collide_with_areas = true
-	set_casting(true)
+	if(line2d == null):
+		print("Null")
+	line2d.visible = false
 
 func _physics_process(delta: float):
 	# Moves the ray forward while active
@@ -47,11 +49,14 @@ func set_casting(new_value) -> void:
 	isCasting = new_value
 	# Disables physics while not casting
 	set_physics_process(isCasting)
-	if(not line2d): return
+	if(line2d == null): 
+		print(isCasting, " Null")
+		return
 	if (isCasting == false):
 		laser.target_position = Vector2.ZERO
 		disappear()
 	else:
+		print("laser appears")
 		appear()
 
 # Called when the laser is cast
