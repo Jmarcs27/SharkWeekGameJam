@@ -1,7 +1,7 @@
 class_name Obstacle extends Node2D
 
 @export var moveSpeed = 200
-@export var powerUpChance = .1
+@export var powerUpChance = 1
 @export var hitPoints = 3;
 
 var powerUps = [

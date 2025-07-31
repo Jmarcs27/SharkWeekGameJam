@@ -5,6 +5,7 @@ class_name Shork extends Area2D
 @export var bombCount = 3
 @export var hitPoints = 3
 @export var multiShotStacks = 1
+@export var isDead = false
 
 var screenSize # Size of the game window.
 var projectileScene
@@ -16,25 +17,27 @@ var multiShotIter = 0
 func _ready():
 	screenSize = get_viewport_rect().size
 	projectileScene = preload("res://player/shork_projectile.tscn")
+	$AnimatedSprite2D.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float):
 	var velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 0.7   
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
-	if Input.is_action_pressed("attack") && $AtkCooldown.is_stopped():
-		shoot()
-	if Input.is_action_just_pressed("bomb"):
-		use_bomb()
+	if(!isDead):
+		if Input.is_action_pressed("move_right"):
+			velocity.x += 1
+		if Input.is_action_pressed("move_left"):
+			velocity.x -= 0.7
+		if Input.is_action_pressed("move_down"):
+			velocity.y += 1
+		if Input.is_action_pressed("move_up"):
+			velocity.y -= 1
+		if Input.is_action_pressed("attack") && $AtkCooldown.is_stopped():
+			shoot()
+		if Input.is_action_just_pressed("bomb"):
+			use_bomb()
 		
-	position += velocity * delta * moveSpeed
-	position = position.clamp(Vector2.ZERO, screenSize)
+		position += velocity * delta * moveSpeed
+		position = position.clamp(Vector2.ZERO, screenSize)
 
 func shoot():
 	var newProjectile = projectileScene.instantiate()
@@ -72,7 +75,9 @@ func take_damage():
 		$DamageTimer.start()
 		if hitPoints <= 0:
 			print("You Deadge!")
-			$Sprite2D.flip_v = true
+			isDead = true
+			$AnimatedSprite2D.stop()
+			$AnimatedSprite2D.flip_v = true
 
 
 func _on_multi_attack_delay_timeout() -> void:

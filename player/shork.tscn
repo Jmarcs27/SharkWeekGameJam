@@ -1,7 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw1g3sbw8n2gx"]
+[gd_scene load_steps=7 format=3 uid="uid://dw1g3sbw8n2gx"]
 
 [ext_resource type="Script" uid="uid://bk0me8ohjsdr0" path="res://player/shork.gd" id="1_1tpah"]
-[ext_resource type="Texture2D" uid="uid://cxl8s6kjupbt2" path="res://assets/shork.png" id="2_qoasd"]
+[ext_resource type="Texture2D" uid="uid://chqqw6tgt5rxi" path="res://assets/Shork_Sheet.png" id="2_diojf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqusa"]
+atlas = ExtResource("2_diojf")
+region = Rect2(0, 0, 96, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omwl0"]
+atlas = ExtResource("2_diojf")
+region = Rect2(96, 0, 96, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_54x88"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqusa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omwl0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_diojf"]
 radius = 31.0
@@ -14,10 +36,12 @@ collision_mask = 127
 script = ExtResource("1_1tpah")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = -3.14159
 scale = Vector2(2.217, -3)
-texture = ExtResource("2_qoasd")
+sprite_frames = SubResource("SpriteFrames_54x88")
+frame = 1
+frame_progress = 0.688733
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(9, 7)
