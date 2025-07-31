@@ -3,7 +3,7 @@ extends Node2D
 @export var shootSpeed = 300
 # Used for children indexing
 enum Children {BOLT, HARPOON}
-@onready var player = get_node("../../../Shork")
+@onready var player = get_node("/root").get_child(0).get_node("Shork")
 @onready var bolt = get_child(Children.BOLT)
 @onready var harpoon = get_child(Children.HARPOON)
 
@@ -24,18 +24,20 @@ func _physics_process(delta: float):
 		boltDir = (player.global_position - bolt.global_position).normalized()
 	pass
 	
-func prepare_shot() -> void:
+func prepare_shot(fromBoss: bool) -> void:
 	aiming = true # Enables player tracking
-	# Uses tween to animate the harpoons appearing from behind the boss
-	var tween = create_tween()
-	tween.tween_property(self, "position", position - Vector2(84, 0), 2)
-	# Waits for tween to end and shoots the bolt
+	if fromBoss:
+		# Uses tween to animate the harpoons appearing from behind the boss
+		var tween = create_tween()
+		tween.tween_property(self, "position", position - Vector2(84, 0), 2)
+		# Waits for tween to end and shoots the bolt
 	await get_tree().create_timer(2.5).timeout
 	shooting = true
-	reload()
+	reload(fromBoss)
 	
 # Hides the harpoon for cleanup
-func reload() -> void:
-	var tween = create_tween()
-	tween.tween_property(harpoon, "position", harpoon.position + Vector2(84, 0), 2)
+func reload(fromBoss: bool) -> void:
+	if fromBoss:
+		var tween = create_tween()
+		tween.tween_property(harpoon, "position", harpoon.position + Vector2(84, 0), 2)
 	

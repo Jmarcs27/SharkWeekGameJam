@@ -12,12 +12,14 @@ var projectileScene
 var distanceToMouth = 110
 var burstDelay = 0.05
 var multiShotIter = 0
+var canMoveUp = true
+var canMoveDown = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	screenSize = get_viewport_rect().size
 	projectileScene = preload("res://player/shork_projectile.tscn")
-	$AnimatedSprite2D.play()
+	$Sprite.play()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float):
@@ -27,17 +29,22 @@ func _physics_process(delta: float):
 			velocity.x += 1
 		if Input.is_action_pressed("move_left"):
 			velocity.x -= 0.7
-		if Input.is_action_pressed("move_down"):
+		if Input.is_action_pressed("move_down") && canMoveDown:
 			velocity.y += 1
-		if Input.is_action_pressed("move_up"):
+		if Input.is_action_pressed("move_up") && canMoveUp:
 			velocity.y -= 1
 		if Input.is_action_pressed("attack") && $AtkCooldown.is_stopped():
 			shoot()
 		if Input.is_action_just_pressed("bomb"):
 			use_bomb()
-		
+			
 		position += velocity * delta * moveSpeed
 		position = position.clamp(Vector2.ZERO, screenSize)
+
+	else:
+		velocity.y += .3
+		
+		position += velocity * delta * moveSpeed
 
 func shoot():
 	var newProjectile = projectileScene.instantiate()
@@ -65,7 +72,6 @@ func _on_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("Bad"):
 		take_damage()
 
-
 func grant_power_up(powerUp: PowerUp):
 	powerUp.apply(self)
 
@@ -77,9 +83,27 @@ func take_damage():
 		if hitPoints <= 0:
 			print("You Deadge!")
 			isDead = true
-			$AnimatedSprite2D.stop()
-			$AnimatedSprite2D.flip_v = true
+			$Sprite.stop()
+			$Sprite.flip_v = true
+		else:
+			var tween = create_tween()
+			tween.tween_property(find_child("Sprite"), "modulate", Color(1, 0, 0, 0.9), 0.05)
+			tween.tween_property(find_child("Sprite"), "modulate", Color(1, 1, 1, 1), 1.25)
+
 
 
 func _on_multi_attack_delay_timeout() -> void:
 	shoot()
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.name == "Ceiling":
+		canMoveUp = false
+	elif area.name == "Floor":
+		canMoveDown = false
+
+func _on_area_exited(area: Area2D) -> void:
+	if area.name == "Ceiling":
+		canMoveUp = true
+	elif area.name == "Floor":
+		canMoveDown = true

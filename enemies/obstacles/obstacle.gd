@@ -1,7 +1,7 @@
 class_name Obstacle extends Node2D
 
 @export var moveSpeed = 200
-@export var powerUpChance = 1
+@export var powerUpChance = .1
 @export var hitPoints = 3;
 
 var powerUps = [
@@ -17,7 +17,11 @@ func damage_check(area: Area2D):
 		hitPoints -= 1
 		if hitPoints <= 0:
 			kill()
-
+		else:
+			var tween = create_tween()
+			tween.tween_property(find_child("Sprite2D"), "modulate", Color(1, 0, 0, 0.9), 0.05)
+			tween.tween_property(find_child("Sprite2D"), "modulate", Color(1, 1, 1, 1), 0.25)
+			
 func kill():
 	randomize()
 	var position = global_position

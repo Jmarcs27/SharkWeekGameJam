@@ -51,7 +51,7 @@ func shoot_harpoons() -> void:
 	# Gets all harpoons in the fight and shoots them at the player
 	for child in child[HARPOONS].get_children():
 		if (randf() <= shootPercent): # Chance to fail
-			child.prepare_shot()
+			child.prepare_shot(true)
 			await get_tree().create_timer(0.3).timeout
 
 # Player has shot the boss

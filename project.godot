@@ -27,6 +27,7 @@ window/canvas_textures/default_texture_filter=1
 Bad="Something that hurts the player"
 Bullet=""
 PowerUp="PowerUps and Heals"
+Wall=""
 
 [input]
 

@@ -1,14 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://djio5447b6d4v"]
+[gd_scene load_steps=10 format=3 uid="uid://djio5447b6d4v"]
 
 [ext_resource type="Script" uid="uid://dixl54wta0pj6" path="res://world/stage/mine_spawns.gd" id="1_nyl2s"]
+[ext_resource type="Shader" uid="uid://bdygvh45s4amo" path="res://world/stage/mine_run_background.gdshader" id="2_a4jwl"]
 [ext_resource type="PackedScene" uid="uid://dw1g3sbw8n2gx" path="res://player/shork.tscn" id="2_nyl2s"]
 [ext_resource type="Script" uid="uid://bixdmlclsfnfe" path="res://world/stage/debris_spawns.gd" id="3_in1fm"]
+[ext_resource type="PackedScene" uid="uid://b26jk3tnas0ft" path="res://enemies/mini_boss/smol_scuba.tscn" id="4_dvm6u"]
+[ext_resource type="Texture2D" uid="uid://nb2cknghlw2f" path="res://assets/Underwater_Cave.png" id="4_yl1or"]
 
-[node name="MineRun" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jt1le"]
+shader = ExtResource("2_a4jwl")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 0.05
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvm6u"]
+size = Vector2(509.721, 55.5122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a4jwl"]
+size = Vector2(290, 233)
+
+[node name="MiniBoss" type="Node2D"]
+
+[node name="CaveBackground" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jt1le")
+position = Vector2(1078, 179)
+scale = Vector2(1, 0.997006)
+texture = ExtResource("4_yl1or")
+
+[node name="Ceiling" type="Area2D" parent="." groups=["Wall"]]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CeilingHitbox" type="CollisionShape2D" parent="Ceiling" groups=["Wall"]]
+position = Vector2(320, 32.5)
+rotation = -3.14159
+scale = Vector2(1.25641, 1.11687)
+shape = SubResource("RectangleShape2D_dvm6u")
+
+[node name="Floor" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="FloorHitbox" type="CollisionShape2D" parent="Floor" groups=["Wall"]]
+position = Vector2(318.791, 329)
+rotation = -3.14159
+scale = Vector2(1.25641, 1.11687)
+shape = SubResource("RectangleShape2D_dvm6u")
 
 [node name="Shork" parent="." instance=ExtResource("2_nyl2s")]
-position = Vector2(218, 104)
+position = Vector2(155, 169)
 scale = Vector2(0.5, 0.5)
+
+[node name="SmolScuba" parent="." instance=ExtResource("4_dvm6u")]
+position = Vector2(568, 173)
+
+[node name="Constraints" type="Area2D" parent="SmolScuba"]
+
+[node name="BossConstraintBox" type="CollisionShape2D" parent="SmolScuba/Constraints"]
+position = Vector2(-109, 7.5)
+shape = SubResource("RectangleShape2D_a4jwl")
+debug_color = Color(0.695002, 0.493968, 0.0847391, 0.42)
 
 [node name="MineSpawns" type="Node2D" parent="."]
 script = ExtResource("1_nyl2s")
