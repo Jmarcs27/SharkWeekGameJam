@@ -81,11 +81,12 @@ target_position = Vector2(500, 0)
 collision_mask = 129
 collide_with_areas = true
 
-[node name="Line2D" type="Line2D" parent="scuba_boss/Laser" groups=["Bad"]]
-visible = false
-points = PackedVector2Array(0, 0, 500, 0)
+[node name="Line2D" type="Line2D" parent="scuba_boss/Laser"]
+scale = Vector2(1.00045, 1)
+points = PackedVector2Array(0, 0, 0, 0)
 begin_cap_mode = 2
 end_cap_mode = 2
 
 [connection signal="area_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_collision_zone_area_entered"]
 [connection signal="timeout" from="scuba_boss/Timer" to="scuba_boss" method="_on_timer_timeout"]
+[connection signal="tree_exiting" from="scuba_boss/Laser" to="scuba_boss/Laser" method="_on_tree_exiting"]

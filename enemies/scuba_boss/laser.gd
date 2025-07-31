@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 # Followed GDQuest "Make an IMPRESSIVE 2D LASER Beam in Godot" video on YoutTube
 
@@ -18,6 +17,7 @@ func _ready():
 	if(line2d == null):
 		print("Null")
 	line2d.visible = false
+	set_casting(true)
 
 func _physics_process(delta: float):
 	# Moves the ray forward while active
@@ -31,7 +31,6 @@ func _physics_process(delta: float):
 	laser.force_raycast_update() # Update the ray's collision query.
 	
 	# Checks for collision only with player
-	var dontDie = 0
 	while (laser.is_colliding()):
 		var obj = laser.get_collider()
 		if (obj.is_in_group("Bad")):
@@ -50,7 +49,7 @@ func set_casting(new_value) -> void:
 	# Disables physics while not casting
 	set_physics_process(isCasting)
 	if(line2d == null): 
-		print(isCasting, " Null")
+		print("Line2D is Null")
 		return
 	if (isCasting == false):
 		laser.target_position = Vector2.ZERO
@@ -61,6 +60,7 @@ func set_casting(new_value) -> void:
 
 # Called when the laser is cast
 func appear() -> void:
+	print("Appear")
 	line2d.visible = true
 	if tween and tween.is_running():
 		tween.kill()
@@ -82,3 +82,13 @@ func set_color(newColor: Color) -> void:
 	if (line2d == null):
 		return
 	line2d.modulate = newColor
+
+
+func _on_line_2d_tree_exiting():
+	print("Line2D is exiting the scene tree, frame: ", Engine.get_physics_frames())
+	print_stack()
+
+
+func _on_tree_exiting():
+	print("Line2D is exiting the scene tree, frame: ", Engine.get_physics_frames())
+	print_stack()
