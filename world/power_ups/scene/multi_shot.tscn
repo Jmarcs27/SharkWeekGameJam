@@ -1,8 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://beaoi6sc745e1"]
+[gd_scene load_steps=9 format=3 uid="uid://beaoi6sc745e1"]
 
 [ext_resource type="Script" uid="uid://bxitedyhcy3n2" path="res://world/power_ups/script/multi_shot.gd" id="1_vfysa"]
+[ext_resource type="Texture2D" uid="uid://drywa6hd0yl1p" path="res://assets/Multi-Shot-Sheet.png" id="2_eqveo"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h4fau"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_raxht"]
+atlas = ExtResource("2_eqveo")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0unhq"]
+atlas = ExtResource("2_eqveo")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrsva"]
+atlas = ExtResource("2_eqveo")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgft8"]
+atlas = ExtResource("2_eqveo")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d6tds"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raxht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0unhq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrsva")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgft8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vae2s"]
 size = Vector2(43, 44)
@@ -11,10 +47,10 @@ size = Vector2(43, 44)
 script = ExtResource("1_vfysa")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(42, 42)
-texture = SubResource("PlaceholderTexture2D_h4fau")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_d6tds")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Good"]]
 shape = SubResource("RectangleShape2D_vae2s")

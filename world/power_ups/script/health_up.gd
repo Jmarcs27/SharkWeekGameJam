@@ -1,10 +1,9 @@
-extends PowerUp
+class_name HealthUp extends PowerUp
 
-class_name AtkSpeedUp
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$AnimatedSprite2D.play()
+	pass # Replace with function body.
 
 func apply(shork: Shork):
-	shork.attackSpeed *= 0.75
+	shork.hitPoints += 1
 	queue_free()

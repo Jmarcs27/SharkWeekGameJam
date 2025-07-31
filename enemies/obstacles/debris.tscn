@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b40lro2y307r"]
 
-[ext_resource type="Script" uid="uid://b1abjfi12cbd8" path="res://enemies/debris.gd" id="1_5nslg"]
+[ext_resource type="Script" uid="uid://b1abjfi12cbd8" path="res://enemies/obstacles/debris.gd" id="1_5nslg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5nslg"]
 

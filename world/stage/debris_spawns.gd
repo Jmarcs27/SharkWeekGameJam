@@ -1,7 +1,7 @@
 extends Node2D
 
 var lastSpawnerUsed
-var debrisScene = preload("res://enemies/debris.tscn")
+var debrisScene = preload("res://enemies/obstacles/debris.tscn")
 
 func spawn_debris():
 	var spawners = get_children()
@@ -21,5 +21,4 @@ func spawn_debris():
 	lastSpawnerUsed = spawner
 
 func _on_debris_spawn_timer_timeout() -> void:
-	print("Spawning debris")
 	spawn_debris()

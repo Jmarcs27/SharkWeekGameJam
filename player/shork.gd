@@ -1,4 +1,4 @@
-extends Area2D
+class_name Shork extends Area2D
 
 @export var moveSpeed = 400 # How fast the player will move (pixels/sec).
 @export var attackSpeed = 1.0
@@ -29,27 +29,25 @@ func _physics_process(delta: float):
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
 	if Input.is_action_pressed("attack") && $AtkCooldown.is_stopped():
-		print("Calling Shoot")
-		shoot(false)
+		shoot()
 	if Input.is_action_just_pressed("bomb"):
 		use_bomb()
 		
 	position += velocity * delta * moveSpeed
 	position = position.clamp(Vector2.ZERO, screenSize)
 
-func shoot(multiShot: bool):
-	var currentPosition = $".".get_global_position()
+func shoot():
 	var newProjectile = projectileScene.instantiate()
 	newProjectile.position = $ProjectileSpawn.global_position
-	get_parent().add_child(newProjectile)
+	add_sibling(newProjectile)
 	multiShotIter += 1
 	if(multiShotIter < multiShotStacks):
 		$MultiAttackDelay.start(burstDelay)
 	else:
 		multiShotIter = 0
-	$AtkCooldown.start()
+	$AtkCooldown.start(attackSpeed)
 
-
+# TODO
 func use_bomb():
 	if $BombCooldown.is_stopped() && bombCount > 0:
 		print("BOOM ERRYTHING DEAD")
@@ -58,29 +56,14 @@ func use_bomb():
 
 
 func _on_body_entered(body: Node2D) -> void:
-	print("Touched ", body.name) 
 	if body.is_in_group("Good"):
 		grant_power_up(body)
 	elif body.is_in_group("Bad"):
 		take_damage()
 
 
-func grant_power_up(body: PowerUp):
-	var entityName = body.name
-	match entityName:
-		"MultiShot":
-			multiShotStacks += 1
-			body.hide();
-			body.set_deferred("disabled", true)
-		"MoveSpeedUp":
-			moveSpeed *= 1.1
-			body.hide();
-			body.set_deferred("disabled", true)
-		"AttackSpeedUp":
-			$AtkCooldown.wait_time *= 0.75
-			body.hide();
-			body.set_deferred("disabled", true)
-
+func grant_power_up(powerUp: PowerUp):
+	powerUp.apply(self)
 
 func take_damage():
 	if $DamageTimer.is_stopped():
@@ -92,5 +75,5 @@ func take_damage():
 			$Sprite2D.flip_v = true
 
 
-func _attack_delay_timeout() -> void:
-	shoot(true)
+func _on_multi_attack_delay_timeout() -> void:
+	shoot()

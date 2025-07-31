@@ -1,8 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://crxfltdoynb24"]
+[gd_scene load_steps=9 format=3 uid="uid://crxfltdoynb24"]
 
 [ext_resource type="Script" uid="uid://c4ddobkvp3v4k" path="res://world/power_ups/script/move_speed_up.gd" id="1_8jor8"]
+[ext_resource type="Texture2D" uid="uid://c35otkjxf1lia" path="res://assets/Move-Speed-Up-Sheet.png" id="2_v5wmt"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h4fau"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sd40s"]
+atlas = ExtResource("2_v5wmt")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yrph1"]
+atlas = ExtResource("2_v5wmt")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pomu3"]
+atlas = ExtResource("2_v5wmt")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olkug"]
+atlas = ExtResource("2_v5wmt")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_btlly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sd40s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yrph1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pomu3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olkug")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vae2s"]
 size = Vector2(43, 44)
@@ -11,10 +46,10 @@ size = Vector2(43, 44)
 script = ExtResource("1_8jor8")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(42, 42)
-texture = SubResource("PlaceholderTexture2D_h4fau")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_btlly")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Good"]]
 shape = SubResource("RectangleShape2D_vae2s")

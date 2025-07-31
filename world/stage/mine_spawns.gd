@@ -1,7 +1,7 @@
 extends Node2D
 
 var lastSpawnerUsed
-var mineScene = preload("res://enemies/sea_mine.tscn")
+var mineScene = preload("res://enemies/obstacles/sea_mine.tscn")
 
 func spawn_mine():
 	var spawners = get_children()
@@ -21,5 +21,4 @@ func spawn_mine():
 	lastSpawnerUsed = spawner
 
 func _on_mine_spawn_timer_timeout() -> void:
-	print("Spawning Mine")
 	spawn_mine()

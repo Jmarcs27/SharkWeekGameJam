@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwqm2"]
 size = Vector2(9, 9)
 
-[node name="ShorkProjectile" type="Area2D"]
+[node name="ShorkProjectile" type="Area2D" groups=["Bullet"]]
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_wwqm2")
@@ -18,7 +18,7 @@ position = Vector2(4.25, 4.25)
 scale = Vector2(9.5, 9.5)
 texture = SubResource("PlaceholderTexture2D_luiw1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Bullet"]]
 position = Vector2(4.5, 4.5)
 shape = SubResource("RectangleShape2D_wwqm2")
 

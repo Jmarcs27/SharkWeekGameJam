@@ -25,7 +25,8 @@ window/canvas_textures/default_texture_filter=1
 [global_group]
 
 Bad="Something that hurts the player"
-Good="PowerUps and Heals"
+Bullet=""
+PowerUp="PowerUps and Heals"
 
 [input]
 
