@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dw1g3sbw8n2gx" path="res://player/shork.tscn" id="1_vn6gr"]
 [ext_resource type="Script" uid="uid://nwnnwv5waetv" path="res://enemies/scuba_boss/scuba_boss.gd" id="2_5v6lt"]
 [ext_resource type="Texture2D" uid="uid://c47khfhs5q3qf" path="res://assets/scuba_boss/Boss_Concept.png" id="2_wb2ks"]
-[ext_resource type="Script" uid="uid://tgt67con137c" path="res://enemies/scuba_boss/laser.gd" id="4_5v6lt"]
+[ext_resource type="PackedScene" uid="uid://behwepdltap4a" path="res://enemies/scuba_boss/laser.tscn" id="4_5v6lt"]
 
 [node name="ScubaBoss" type="Node2D"]
 
@@ -28,8 +28,12 @@ polygon = PackedVector2Array(-1, 0, -36, 0, -52, 19, -83, 40, -104, 93, -132, 96
 position = Vector2(566, 192)
 texture = ExtResource("2_wb2ks")
 
-[node name="Timer" type="Timer" parent="scuba_boss"]
+[node name="HTimer" type="Timer" parent="scuba_boss"]
 wait_time = 7.0
+
+[node name="LTimer" type="Timer" parent="scuba_boss"]
+wait_time = 4.0
+autostart = true
 
 [node name="HarpoonLocations" type="Node2D" parent="scuba_boss"]
 
@@ -72,20 +76,14 @@ position = Vector2(601, 236)
 [node name="Node2D13" type="Node2D" parent="scuba_boss/HarpoonLocations"]
 position = Vector2(580, 184)
 
-[node name="Laser" type="Node2D" parent="scuba_boss" groups=["Bad"]]
-script = ExtResource("4_5v6lt")
-isCasting = true
+[node name="Laser" parent="scuba_boss" instance=ExtResource("4_5v6lt")]
+position = Vector2(522, 165)
+rotation = 3.14159
+scale = Vector2(5, 5)
+isCasting = false
 
-[node name="RayCast2D" type="RayCast2D" parent="scuba_boss/Laser" groups=["Bad"]]
-target_position = Vector2(500, 0)
-collision_mask = 129
-collide_with_areas = true
-
-[node name="Line2D" type="Line2D" parent="scuba_boss/Laser" groups=["Bad"]]
-visible = false
-points = PackedVector2Array(0, 0, 500, 0)
-begin_cap_mode = 2
-end_cap_mode = 2
+[node name="Lasers" type="Node2D" parent="scuba_boss"]
 
 [connection signal="area_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_collision_zone_area_entered"]
-[connection signal="timeout" from="scuba_boss/Timer" to="scuba_boss" method="_on_timer_timeout"]
+[connection signal="timeout" from="scuba_boss/HTimer" to="scuba_boss" method="_on_timer_timeout"]
+[connection signal="timeout" from="scuba_boss/LTimer" to="scuba_boss" method="_on_l_timer_timeout"]
