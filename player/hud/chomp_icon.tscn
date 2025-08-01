@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlyb8xdrqfvf"]
+
+[ext_resource type="Texture2D" uid="uid://v2wvxngdofvf" path="res://assets/Chomp-Up.png" id="1_g33ra"]
+
+[node name="ChompIcon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g33ra")

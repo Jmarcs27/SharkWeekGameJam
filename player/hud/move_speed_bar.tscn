@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dep87v10wsjjb"]
+
+[node name="MoveSpeedBar" type="Node2D"]

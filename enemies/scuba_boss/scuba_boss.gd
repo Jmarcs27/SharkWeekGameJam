@@ -49,7 +49,7 @@ func shoot_harpoons() -> void:
 	for child in child[HARPOONS].get_children():
 		if (randf() <= shootPercent): # Chance to fail
 			if (bossPhasing or child == null): break
-			child.prepare_shot()
+			child.prepare_shot(true)
 			await get_tree().create_timer(0.3).timeout
 
 func shoot_lasers(shootTime : float):

@@ -1,8 +1,8 @@
 class_name Obstacle extends Node2D
 
 @export var moveSpeed = 200
-@export var powerUpChance = .1
-@export var hitPoints = 3;
+@export var powerUpChance = 1
+@export var hitPoints = 3;   
 
 var powerUps = [
 	preload("res://world/power_ups/scene/chomp_up.tscn"),
@@ -33,4 +33,5 @@ func kill():
 func spawn_power_up(position: Vector2):
 	var powerUp = powerUps.pick_random().instantiate()
 	powerUp.global_position = position
+	powerUp.scale = Vector2(0.7, 0.7)
 	get_parent().add_child(powerUp)

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://8ajt7d4fr2vw"]
+
+[node name="AtkSpeedBar" type="Node2D"]

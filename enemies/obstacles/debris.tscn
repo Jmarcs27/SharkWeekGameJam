@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b40lro2y307r"]
+[gd_scene load_steps=5 format=3 uid="uid://b40lro2y307r"]
 
 [ext_resource type="Script" uid="uid://b1abjfi12cbd8" path="res://enemies/obstacles/debris.gd" id="1_5nslg"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5nslg"]
+[ext_resource type="Texture2D" uid="uid://7nltwywm78" path="res://assets/Crumpled_Water_Botttle.png" id="2_an1e4"]
+[ext_resource type="Texture2D" uid="uid://beu8svguly28k" path="res://assets/Fishhook.png" id="3_ryaop"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ifd5"]
 radius = 91.0
@@ -14,10 +14,18 @@ collision_mask = 129
 script = ExtResource("1_5nslg")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Textures" type="Node2D" parent="."]
+
+[node name="Bottle" type="Sprite2D" parent="Textures"]
+visible = false
 position = Vector2(5, 5)
-scale = Vector2(150, 150)
-texture = SubResource("PlaceholderTexture2D_5nslg")
+scale = Vector2(12, 12)
+texture = ExtResource("2_an1e4")
+
+[node name="Hook" type="Sprite2D" parent="Textures"]
+visible = false
+scale = Vector2(12, 12)
+texture = ExtResource("3_ryaop")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Bad"]]
 position = Vector2(3, 5)

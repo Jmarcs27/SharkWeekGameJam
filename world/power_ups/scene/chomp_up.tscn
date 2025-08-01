@@ -1,19 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://bm5njjuu8ah6d"]
+[gd_scene load_steps=6 format=3 uid="uid://bm5njjuu8ah6d"]
 
 [ext_resource type="Script" uid="uid://ix77jmcb51jd" path="res://world/power_ups/script/chomp_up.gd" id="1_o7gvx"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3bjsl"]
+[ext_resource type="Shader" uid="uid://jhipgxgx5vbh" path="res://assets/shaders/shine.gdshader" id="2_f6bkh"]
+[ext_resource type="Texture2D" uid="uid://v2wvxngdofvf" path="res://assets/Chomp-Up.png" id="2_prl2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qhbx4"]
 size = Vector2(43, 44)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubmmv"]
+shader = ExtResource("2_f6bkh")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.01
+
 [node name="ChompUp" type="StaticBody2D" groups=["Good"]]
 script = ExtResource("1_o7gvx")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.90735e-06, 1.90735e-06)
-scale = Vector2(42, 42)
-texture = SubResource("PlaceholderTexture2D_3bjsl")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Good"]]
 shape = SubResource("RectangleShape2D_qhbx4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ubmmv")
+position = Vector2(1, -0.999999)
+scale = Vector2(2, 2.414)
+texture = ExtResource("2_prl2y")
