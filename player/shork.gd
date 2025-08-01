@@ -14,6 +14,7 @@ var burstDelay = 0.05
 var multiShotIter = 0
 var canMoveUp = true
 var canMoveDown = true
+var canMoveRight = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +26,7 @@ func _ready():
 func _physics_process(delta: float):
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if(!isDead):
-		if Input.is_action_pressed("move_right"):
+		if Input.is_action_pressed("move_right") && canMoveRight:
 			velocity.x += 1
 		if Input.is_action_pressed("move_left"):
 			velocity.x -= 0.7
@@ -97,13 +98,18 @@ func _on_multi_attack_delay_timeout() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
+	print(area.name)
 	if area.name == "Ceiling":
 		canMoveUp = false
 	elif area.name == "Floor":
 		canMoveDown = false
+	elif area.name == "Wall":
+		canMoveRight = false
 
 func _on_area_exited(area: Area2D) -> void:
 	if area.name == "Ceiling":
 		canMoveUp = true
 	elif area.name == "Floor":
 		canMoveDown = true
+	elif area.name == "Wall":
+		canMoveRight = true

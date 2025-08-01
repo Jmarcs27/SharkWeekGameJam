@@ -1,42 +1,43 @@
 extends Node
 
-@export var bossBaseHealth = 60
+@export var bossBaseHealth = 10
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
 @onready var player = get_node("../Shork")
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
 
 # Defined the boss phases and set constants in a dictionary
-enum {	HEALTHY, DAMAGED, DYING, DEAD, HARPOONS, HTIMER, LTIMER, SPRITE, LOCATIONS, LASER, LASERS} 
+enum {	HEALTHY, DAMAGED, DEAD, HARPOONS, HTIMER, LTIMER, SPRITE, LOCATIONS, MLASER, TLASER} 
 @onready var child = {
 	HARPOONS: $Harpoons,
-	HTIMER: $HTimer,
+	HTIMER: $Timers/HarpoonTimer,
 	SPRITE: $boss_location,
 	LOCATIONS: $HarpoonLocations,
-	LASER: $Laser,
-	LASERS: $Lasers
+	MLASER: $MainLaser,
+	TLASER: $TopLaser
 }
+@onready var laserPos = child[TLASER].position
 
 var bossHealth = bossBaseHealth
 var shootHarpoons : bool = true
 var bossPhasing : bool = false
 var baseColor : Color = self.modulate
+var laserDir = Vector2(1, 0)
 var combatPhase = HEALTHY
 const BG = "Bullet"
 
 func _physics_process(delta: float):
 	# TODO: Add bubbles around regulator to simulate breathing
-	# TODO: Add anchors falling from above
 	if (not bossPhasing and combatPhase != DEAD):
 		if(shootHarpoons):
 			shoot_harpoons()
 			shootHarpoons = false
 			child[HTIMER].start()
-		
-		if (combatPhase == DAMAGED):
-			pass
-		elif (combatPhase == DYING):
-			dying_phase(delta)
-		# TODO: Disable mechs during phase change animations and death animations
+	if (combatPhase == DAMAGED):
+		if (child[TLASER].position.x <= 0):
+			laserDir = Vector2(1, 0)
+		elif(child[TLASER].position.x >= 460):
+			laserDir = Vector2(-1, 0)
+		child[TLASER].position += laserDir *100*delta
 
 func shoot_harpoons() -> void:
 	print("Harpoon Firing Sequence Initiated")
@@ -48,21 +49,26 @@ func shoot_harpoons() -> void:
 	# Gets all harpoons in the fight and shoots them at the player
 	for children in child[HARPOONS].get_children():
 		if (randf() <= shootPercent): # Chance to fail
-			if (bossPhasing or child == null): break
+			if (bossPhasing or children == null): break
 			children.prepare_shot(true)
 			await get_tree().create_timer(0.3).timeout
 
-func shoot_lasers(shootTime : float):
+func shoot_main_laser(shootTime : float):
 	var tween = create_tween() # To telegraph the shot
 	tween.tween_property(child[SPRITE], "modulate", Color(1, 0, 0, 1), 1)
 	await get_tree().create_timer(1).timeout
-	child[LASER].set_casting(true)
+	child[MLASER].set_casting(true)
 	await get_tree().create_timer(shootTime).timeout
-	child[LASER].set_casting(false)
+	child[MLASER].set_casting(false)
 	tween = create_tween()
 	tween.tween_property(child[SPRITE], "modulate", Color(1, 1, 1, 1), 0.5)
+	shoot_lasers()
 	
-	
+func shoot_lasers() -> void:
+	print("Firing Laser")
+	child[TLASER].set_casting(true)
+	await get_tree().create_timer(2).timeout
+	child[TLASER].set_casting(false)
 
 # Player has shot the boss
 func _on_collision_zone_area_entered(area):
@@ -75,27 +81,17 @@ func _on_collision_zone_area_entered(area):
 	if (area != null): area.queue_free()
 	# Animates the boss taking damage
 	var tween = create_tween()
-	tween.tween_property(child[SPRITE], "modulate", Color(0, 0, 0, 0.9), 0.05)
+	tween.tween_property(child[SPRITE], "modulate", Color(0, 0, 0, 1), 0.05)
 	tween.tween_property(child[SPRITE], "modulate", Color(1, 1, 1, 1), 0.25)
 	
 	# Checks if boss has met a damage threshhold for phase change
-	if (combatPhase == HEALTHY and bossHealth <= (bossBaseHealth * 2/3)):
-		phase_change()
-	elif (combatPhase == DAMAGED and bossHealth <= (bossBaseHealth / 3)):
+	if (combatPhase == HEALTHY and bossHealth <= (bossBaseHealth * 1/2)):
 		phase_change()
 	elif (bossHealth <= 0):
 		phase_change()
 
 #### PHASE RELATED CODE ####
-func damaged_phase(delta: float):
-	# TODO: Add lasers from mask
-	pass
-
-func dying_phase(delta: float):
-	# TODO: Add multi-laser based on mask cracks
-	# TODO: Add toxic bubbles
-	pass
-	
+# For changing phases as a tween callback
 func set_phasing():
 	bossPhasing = !bossPhasing
 
@@ -113,20 +109,17 @@ func phase_change():
 			await get_tree().create_timer(1.3).timeout
 			tween = create_tween()
 			tween.tween_property(self, "position", Vector2 (0, -100), 3)
-			shoot_lasers(3)
+			shoot_main_laser(3)
 			await get_tree().create_timer(3).timeout
 			tween = create_tween()
 			tween.tween_property(self, "position", Vector2 (0, 0), 1)
 			tween.tween_callback(set_phasing) # Hides the line when tween has ended
 			pass
 		DAMAGED:
-			print("Boss has entered the Dying Phase")
-			combatPhase = DYING
-			set_phasing()
-			pass
-		DYING:
+			print("Boss has entered the Dead Phase")
 			combatPhase = DEAD
-			queue_free()
+			set_phasing()
+			# TODO: Add death animation
 			pass
 #### PHASE RELATED CODE ####
 
@@ -136,8 +129,14 @@ func _on_timer_timeout():
 		child.queue_free()
 	shootHarpoons = true
 
-
+# Signal to shoot lasers
 func _on_l_timer_timeout():
-	if(combatPhase != HEALTHY and not bossPhasing):
-		shoot_lasers(2)
-	$LTimer.start()
+	if(combatPhase == DAMAGED and not bossPhasing):
+		shoot_main_laser(2)
+	$Timers/MainLaserTimer.start()
+
+func _on_top_laser_timer_timeout():
+	return
+	if(combatPhase == DAMAGED and not bossPhasing):
+		shoot_main_laser(2)
+	$Timers/TopLaserTimer.start()
