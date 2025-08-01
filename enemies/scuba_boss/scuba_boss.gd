@@ -1,6 +1,6 @@
 extends Node
 
-@export var bossBaseHealth = 6
+@export var bossBaseHealth = 60
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
 @onready var player = get_node("../Shork")
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
@@ -46,10 +46,10 @@ func shoot_harpoons() -> void:
 		child[HARPOONS].add_child(harpoon)
 		
 	# Gets all harpoons in the fight and shoots them at the player
-	for child in child[HARPOONS].get_children():
+	for children in child[HARPOONS].get_children():
 		if (randf() <= shootPercent): # Chance to fail
 			if (bossPhasing or child == null): break
-			child.prepare_shot()
+			children.prepare_shot(true)
 			await get_tree().create_timer(0.3).timeout
 
 func shoot_lasers(shootTime : float):
