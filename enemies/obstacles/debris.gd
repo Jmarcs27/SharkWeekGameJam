@@ -1,7 +1,10 @@
 class_name Debris extends Obstacle
 
 func _ready() -> void:
+	var textures = $Textures.get_children()
 	hitPoints = 1
+	textures.pick_random().visible = true
+	
 	
 func _physics_process(delta: float) -> void:
 	var velocity = Vector2.ZERO 

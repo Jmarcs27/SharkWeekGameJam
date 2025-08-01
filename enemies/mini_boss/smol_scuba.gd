@@ -53,6 +53,10 @@ func _on_area_entered(area: Area2D) -> void:
             print("Boss has entered the Dead Phase")
             queue_free()
             #TODO: Add death animation
+        else:
+            var tween = create_tween()
+            tween.tween_property(find_child("AnimatedSprite2D"), "modulate", Color(1, 0, 0, 0.9), 0.05)
+            tween.tween_property(find_child("AnimatedSprite2D"), "modulate", Color(1, 1, 1, 1), 0.25)
         area.queue_free()
 
 func _on_shot_cooldown_timeout() -> void:

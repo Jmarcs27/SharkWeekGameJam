@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://10kkwgpgd7kd"]
+
+[node name="Hud" type="Node2D"]
+
+[node name="HP" type="Node2D" parent="."]
+position = Vector2(10, 352)
+
+[node name="Chomp" type="Node2D" parent="."]
+position = Vector2(165, 354)
+
+[node name="MoveSpeedUp" type="Node2D" parent="."]
+position = Vector2(10, 336)
+
+[node name="AtkSpeedUp" type="Node2D" parent="."]
+position = Vector2(10, 324)
