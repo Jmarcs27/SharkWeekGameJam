@@ -69,17 +69,11 @@ debug_color = Color(0.695002, 0.493968, 0.0847391, 0.42)
 [node name="MineSpawns" type="Node2D" parent="."]
 script = ExtResource("1_nyl2s")
 
-[node name="Marker2D1" type="Marker2D" parent="MineSpawns"]
-position = Vector2(673, 343)
-
 [node name="Marker2D2" type="Marker2D" parent="MineSpawns"]
 position = Vector2(673, 307)
 
 [node name="Marker2D3" type="Marker2D" parent="MineSpawns"]
 position = Vector2(673, 271)
-
-[node name="Marker2D4" type="Marker2D" parent="MineSpawns"]
-position = Vector2(673, 19)
 
 [node name="Marker2D5" type="Marker2D" parent="MineSpawns"]
 position = Vector2(673, 199)
@@ -98,10 +92,6 @@ position = Vector2(673, 55)
 
 [node name="Marker2D10" type="Marker2D" parent="MineSpawns"]
 position = Vector2(673, 235)
-
-[node name="MineSpawnTimer" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
 
 [node name="DebrisSpawns" type="Node2D" parent="."]
 script = ExtResource("3_in1fm")
@@ -135,6 +125,10 @@ position = Vector2(545, -25)
 
 [node name="Marker2D10" type="Marker2D" parent="DebrisSpawns"]
 position = Vector2(609, -25)
+
+[node name="MineSpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
 
 [node name="DebrisSpawnTimer" type="Timer" parent="."]
 wait_time = 2.0

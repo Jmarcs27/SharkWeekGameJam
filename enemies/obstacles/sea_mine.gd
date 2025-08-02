@@ -1,7 +1,7 @@
 class_name SeaMine extends Obstacle
 
 func _ready() -> void:
-	hitPoints = 5
+	hitPoints = 4
 	
 func _physics_process(delta: float) -> void:
 	var velocity = Vector2.ZERO 
