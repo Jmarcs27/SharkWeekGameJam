@@ -1,11 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvmb0v4tu4o0c"]
 
 [ext_resource type="Script" uid="uid://cwk7l01b3f5u5" path="res://player/shork_projectile.gd" id="1_wwqm2"]
+[ext_resource type="Texture2D" uid="uid://4knaraiybxmy" path="res://assets/Bubble.png" id="2_ssh07"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_luiw1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwqm2"]
-size = Vector2(9, 9)
+[sub_resource type="CircleShape2D" id="CircleShape2D_us26l"]
+radius = 8.01561
 
 [node name="ShorkProjectile" type="Area2D" groups=["Bullet"]]
 collision_layer = 128
@@ -15,11 +14,10 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4.25, 4.25)
-scale = Vector2(9.5, 9.5)
-texture = SubResource("PlaceholderTexture2D_luiw1")
+texture = ExtResource("2_ssh07")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Bullet"]]
-position = Vector2(4.5, 4.5)
-shape = SubResource("RectangleShape2D_wwqm2")
+position = Vector2(4, 4.5)
+shape = SubResource("CircleShape2D_us26l")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://gp2due8ffj04"]
+
+[ext_resource type="Script" uid="uid://nwnnwv5waetv" path="res://enemies/scuba_boss/scuba_boss.gd" id="1_yu1ih"]
+[ext_resource type="Texture2D" uid="uid://c47khfhs5q3qf" path="res://assets/scuba_boss/Boss_Concept.png" id="2_vvrw7"]
+[ext_resource type="PackedScene" uid="uid://behwepdltap4a" path="res://enemies/scuba_boss/laser.tscn" id="3_7waya"]
+
+[node name="scuba_boss" type="Node2D"]
+script = ExtResource("1_yu1ih")
+
+[node name="Harpoons" type="Node2D" parent="."]
+
+[node name="boss_location" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 128
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="boss_location"]
+position = Vector2(646, 16)
+polygon = PackedVector2Array(-1, 0, -36, 0, -52, 19, -83, 40, -104, 93, -132, 96, -141, 139, -140, 184, -128, 209, -104, 213, -104, 227, -111, 229, -110, 245, -98, 248, -58, 294, -118, 355, 0, 355)
+
+[node name="Sprite2D" type="Sprite2D" parent="boss_location"]
+position = Vector2(565, 276)
+texture = ExtResource("2_vvrw7")
+
+[node name="HarpoonLocations" type="Node2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(608, 75)
+
+[node name="Node2D2" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(654, 37)
+
+[node name="Node2D3" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(605, 94)
+
+[node name="Node2D4" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(600, 259)
+
+[node name="Node2D5" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(631, 305)
+
+[node name="Node2D6" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(612, 348)
+
+[node name="Node2D7" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(576, 126)
+
+[node name="Node2D8" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(578, 209)
+
+[node name="Node2D9" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(633, 50)
+
+[node name="Node2D10" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(578, 167)
+
+[node name="Node2D11" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(629, 332)
+
+[node name="Node2D12" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(601, 236)
+
+[node name="Node2D13" type="Node2D" parent="HarpoonLocations"]
+position = Vector2(580, 184)
+
+[node name="MainLaser" parent="." instance=ExtResource("3_7waya")]
+position = Vector2(522, 165)
+rotation = 3.14159
+scale = Vector2(5, 5)
+isCasting = false
+growthTime = 0.3
+
+[node name="TopLaser" parent="." instance=ExtResource("3_7waya")]
+position = Vector2(474, -10)
+rotation = 1.5708
+scale = Vector2(5, 1)
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="MainLaserTimer" type="Timer" parent="Timers"]
+wait_time = 4.0
+autostart = true
+
+[node name="HarpoonTimer" type="Timer" parent="Timers"]
+wait_time = 7.0
+
+[node name="TopLaserTimer" type="Timer" parent="Timers"]
+
+[connection signal="area_entered" from="boss_location" to="." method="_on_collision_zone_area_entered"]
+[connection signal="timeout" from="Timers/MainLaserTimer" to="." method="_on_l_timer_timeout"]
+[connection signal="timeout" from="Timers/HarpoonTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timers/TopLaserTimer" to="." method="_on_top_laser_timer_timeout"]

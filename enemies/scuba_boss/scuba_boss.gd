@@ -1,6 +1,6 @@
 extends Node
 
-@export var bossBaseHealth = 10
+@export var bossBaseHealth = 50
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
 @onready var player = get_node("../Shork")
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
@@ -25,6 +25,9 @@ var laserDir = Vector2(1, 0)
 var combatPhase = HEALTHY
 const BG = "Bullet"
 
+func _ready():
+	set_physics_process(false)
+
 func _physics_process(delta: float):
 	# TODO: Add bubbles around regulator to simulate breathing
 	if (not bossPhasing and combatPhase != DEAD):
@@ -38,6 +41,16 @@ func _physics_process(delta: float):
 		elif(child[TLASER].position.x >= 460):
 			laserDir = Vector2(-1, 0)
 		child[TLASER].position += laserDir *100*delta
+		
+func enable_boss() -> void:
+
+	var tween = create_tween()
+	bossPhasing = true
+	tween.tween_property(self, "position", Vector2 (0, 0), 3)
+	await get_tree().create_timer(3.0).timeout
+	set_physics_process(true)
+	bossPhasing = false
+	print("Boss has been enabled")
 
 func shoot_harpoons() -> void:
 	print("Harpoon Firing Sequence Initiated")
@@ -108,7 +121,7 @@ func phase_change():
 			tween.tween_property(self, "position", Vector2 (0, 400), 1)
 			await get_tree().create_timer(1.3).timeout
 			tween = create_tween()
-			tween.tween_property(self, "position", Vector2 (0, -100), 3)
+			tween.tween_property(self, "position", Vector2 (0, -50), 3)
 			shoot_main_laser(3)
 			await get_tree().create_timer(3).timeout
 			tween = create_tween()
@@ -119,6 +132,7 @@ func phase_change():
 			print("Boss has entered the Dead Phase")
 			combatPhase = DEAD
 			set_phasing()
+			queue_free()
 			# TODO: Add death animation
 			pass
 #### PHASE RELATED CODE ####
@@ -136,7 +150,6 @@ func _on_l_timer_timeout():
 	$Timers/MainLaserTimer.start()
 
 func _on_top_laser_timer_timeout():
-	return
 	if(combatPhase == DAMAGED and not bossPhasing):
 		shoot_main_laser(2)
 	$Timers/TopLaserTimer.start()

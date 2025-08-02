@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://nos76c0twmmm"]
+[gd_scene load_steps=4 format=3 uid="uid://nos76c0twmmm"]
 
 [ext_resource type="PackedScene" uid="uid://dw1g3sbw8n2gx" path="res://player/shork.tscn" id="1_vn6gr"]
-[ext_resource type="Script" uid="uid://nwnnwv5waetv" path="res://enemies/scuba_boss/scuba_boss.gd" id="2_5v6lt"]
-[ext_resource type="Texture2D" uid="uid://c47khfhs5q3qf" path="res://assets/scuba_boss/Boss_Concept.png" id="2_wb2ks"]
-[ext_resource type="PackedScene" uid="uid://behwepdltap4a" path="res://enemies/scuba_boss/laser.tscn" id="4_5v6lt"]
+[ext_resource type="PackedScene" uid="uid://gp2due8ffj04" path="res://enemies/scuba_boss/scuba_boss.tscn" id="2_vn6gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5v6lt"]
 size = Vector2(123.368, 342.027)
@@ -25,88 +23,4 @@ rotation = -3.14159
 scale = Vector2(1.25641, 1.11687)
 shape = SubResource("RectangleShape2D_5v6lt")
 
-[node name="scuba_boss" type="Node2D" parent="."]
-script = ExtResource("2_5v6lt")
-
-[node name="Harpoons" type="Node2D" parent="scuba_boss"]
-
-[node name="boss_location" type="Area2D" parent="scuba_boss"]
-collision_layer = 128
-collision_mask = 128
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="scuba_boss/boss_location"]
-position = Vector2(646, 16)
-polygon = PackedVector2Array(-1, 0, -36, 0, -52, 19, -83, 40, -104, 93, -132, 96, -141, 139, -140, 184, -128, 209, -104, 213, -104, 227, -111, 229, -110, 245, -98, 248, -58, 294, -118, 355, 0, 355)
-
-[node name="Sprite2D" type="Sprite2D" parent="scuba_boss/boss_location"]
-position = Vector2(565, 276)
-texture = ExtResource("2_wb2ks")
-
-[node name="HarpoonLocations" type="Node2D" parent="scuba_boss"]
-
-[node name="Node2D" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(608, 75)
-
-[node name="Node2D2" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(654, 37)
-
-[node name="Node2D3" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(605, 94)
-
-[node name="Node2D4" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(600, 259)
-
-[node name="Node2D5" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(631, 305)
-
-[node name="Node2D6" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(612, 348)
-
-[node name="Node2D7" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(576, 126)
-
-[node name="Node2D8" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(578, 209)
-
-[node name="Node2D9" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(633, 50)
-
-[node name="Node2D10" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(578, 167)
-
-[node name="Node2D11" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(629, 332)
-
-[node name="Node2D12" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(601, 236)
-
-[node name="Node2D13" type="Node2D" parent="scuba_boss/HarpoonLocations"]
-position = Vector2(580, 184)
-
-[node name="MainLaser" parent="scuba_boss" instance=ExtResource("4_5v6lt")]
-position = Vector2(522, 165)
-rotation = 3.14159
-scale = Vector2(5, 5)
-isCasting = false
-growthTime = 0.3
-
-[node name="TopLaser" parent="scuba_boss" instance=ExtResource("4_5v6lt")]
-position = Vector2(474, -10)
-rotation = 1.5708
-scale = Vector2(5, 1)
-
-[node name="Timers" type="Node2D" parent="scuba_boss"]
-
-[node name="MainLaserTimer" type="Timer" parent="scuba_boss/Timers"]
-wait_time = 4.0
-autostart = true
-
-[node name="HarpoonTimer" type="Timer" parent="scuba_boss/Timers"]
-wait_time = 7.0
-
-[node name="TopLaserTimer" type="Timer" parent="scuba_boss/Timers"]
-
-[connection signal="area_entered" from="scuba_boss/boss_location" to="scuba_boss" method="_on_collision_zone_area_entered"]
-[connection signal="timeout" from="scuba_boss/Timers/MainLaserTimer" to="scuba_boss" method="_on_l_timer_timeout"]
-[connection signal="timeout" from="scuba_boss/Timers/HarpoonTimer" to="scuba_boss" method="_on_timer_timeout"]
-[connection signal="timeout" from="scuba_boss/Timers/TopLaserTimer" to="scuba_boss" method="_on_top_laser_timer_timeout"]
+[node name="scuba_boss" parent="." instance=ExtResource("2_vn6gr")]
