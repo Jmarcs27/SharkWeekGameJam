@@ -2,7 +2,7 @@ extends Node
 
 @export var bossBaseHealth = 50
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
-@onready var player = get_node("../Shork")
+@onready var player = get_node("%Shork")
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
 
 # Defined the boss phases and set constants in a dictionary

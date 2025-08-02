@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmrgii22fexoh"]
+
+[ext_resource type="Script" uid="uid://xrx0gp3r061i" path="res://menu.gd" id="1_ia0g5"]
+[ext_resource type="Shader" uid="uid://bdygvh45s4amo" path="res://world/stage/mine_run_background.gdshader" id="1_v2mkm"]
+[ext_resource type="Texture2D" uid="uid://nb2cknghlw2f" path="res://assets/Underwater_Cave.png" id="2_ctwoq"]
+[ext_resource type="PackedScene" uid="uid://bbbfylpje5lb8" path="res://world/stage/mine_run.tscn" id="2_vpdu5"]
+[ext_resource type="Texture2D" uid="uid://d0ugx7lki7a4c" path="res://assets/Button.png" id="5_ctwoq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ppfnh"]
+shader = ExtResource("1_v2mkm")
+shader_parameter/direction = Vector2(1, 0)
+shader_parameter/speed_scale = 0.05
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CaveBackground" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_ppfnh")
+position = Vector2(1078, 179)
+scale = Vector2(1, 0.997006)
+texture = ExtResource("2_ctwoq")
+
+[node name="Menu" type="Node2D" parent="."]
+process_mode = 3
+z_index = 1
+script = ExtResource("1_ia0g5")
+gameScene = ExtResource("2_vpdu5")
+
+[node name="Start" type="Button" parent="Menu"]
+offset_left = 240.0
+offset_top = 65.0
+offset_right = 560.0
+offset_bottom = 225.0
+scale = Vector2(0.4, 0.4)
+theme_override_font_sizes/font_size = 50
+text = "Start"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu/Start"]
+position = Vector2(162, 80)
+texture = ExtResource("5_ctwoq")
+
+[node name="Settings" type="Button" parent="Menu"]
+offset_left = 240.0
+offset_top = 135.0
+offset_right = 560.0
+offset_bottom = 295.0
+scale = Vector2(0.4, 0.4)
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu/Settings"]
+position = Vector2(162, 80)
+texture = ExtResource("5_ctwoq")
+
+[node name="Quit" type="Button" parent="Menu"]
+offset_left = 240.0
+offset_top = 205.0
+offset_right = 560.0
+offset_bottom = 365.0
+scale = Vector2(0.4, 0.4)
+theme_override_font_sizes/font_size = 50
+text = "Quit
+"
+flat = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Menu/Quit"]
+position = Vector2(162, 80)
+texture = ExtResource("5_ctwoq")
+
+[connection signal="mouse_entered" from="Menu/Start" to="Menu" method="_on_start_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Start" to="Menu" method="_on_start_mouse_exited"]
+[connection signal="pressed" from="Menu/Start" to="Menu" method="_on_start_pressed"]
+[connection signal="mouse_entered" from="Menu/Settings" to="Menu" method="_on_settings_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Settings" to="Menu" method="_on_settings_mouse_exited"]
+[connection signal="mouse_entered" from="Menu/Quit" to="Menu" method="_on_quit_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/Quit" to="Menu" method="_on_quit_mouse_exited"]
+[connection signal="pressed" from="Menu/Quit" to="Menu" method="_on_quit_pressed"]

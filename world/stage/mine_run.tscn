@@ -53,6 +53,7 @@ scale = Vector2(1.25641, 1.11687)
 shape = SubResource("RectangleShape2D_dvm6u")
 
 [node name="Shork" parent="." instance=ExtResource("2_nyl2s")]
+unique_name_in_owner = true
 position = Vector2(155, 169)
 scale = Vector2(0.5, 0.5)
 

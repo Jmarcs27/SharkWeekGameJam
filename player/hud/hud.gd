@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var shork = get_node("/root").get_child(0).get_node("Shork")
+#@onready var shork = get_node("/root").get_child(0).get_node("Shork")
+@onready var shork = get_node("%Shork") # Name, recursive, owned_by_parent
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	updateText()

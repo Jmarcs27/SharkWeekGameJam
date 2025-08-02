@@ -2,10 +2,10 @@ extends Node2D
 
 @export var shootSpeed = 300
 # Used for children indexing
-enum Children {BOLT, HARPOON}
-@onready var player = get_node("/root").get_child(0).get_node("Shork")
-@onready var bolt = get_child(Children.BOLT)
-@onready var harpoon = get_child(Children.HARPOON)
+enum {BOLT, HARPOON}
+@onready var player = get_parent().get_parent().get_node("%Shork")
+@onready var bolt = get_child(BOLT)
+@onready var harpoon = get_child(HARPOON)
 
 var boltDir : Vector2 = Vector2.LEFT
 var aiming = false
@@ -16,6 +16,7 @@ func _physics_process(delta: float):
 		bolt.translate(boltDir * delta * shootSpeed)
 	elif (aiming == true):
 		# Rotates the harpoon toward the player
+		if (player == null): print("Player null")
 		var direction = (player.global_position - bolt.global_position).normalized()
 		var direction2 = (player.global_position + bolt.global_position).normalized()
 		var target_angle = direction.angle() - PI

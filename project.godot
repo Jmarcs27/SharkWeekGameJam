@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SharkGame"
-run/main_scene="uid://dw1g3sbw8n2gx"
+run/main_scene="uid://cmrgii22fexoh"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
