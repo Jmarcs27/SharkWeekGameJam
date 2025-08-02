@@ -1,15 +1,51 @@
-[gd_scene format=3 uid="uid://10kkwgpgd7kd"]
+[gd_scene load_steps=4 format=3 uid="uid://10kkwgpgd7kd"]
+
+[ext_resource type="Script" uid="uid://dtip0ll8ggu38" path="res://player/hud/hud.gd" id="1_5rf3r"]
+[ext_resource type="PackedScene" uid="uid://dsxsenktopijk" path="res://player/hud/life_icon.tscn" id="1_vhn6v"]
+[ext_resource type="PackedScene" uid="uid://dlyb8xdrqfvf" path="res://player/hud/chomp_icon.tscn" id="2_qtddk"]
 
 [node name="Hud" type="Node2D"]
-
-[node name="HP" type="Node2D" parent="."]
-position = Vector2(10, 352)
-
-[node name="Chomp" type="Node2D" parent="."]
-position = Vector2(165, 354)
+script = ExtResource("1_5rf3r")
 
 [node name="MoveSpeedUp" type="Node2D" parent="."]
-position = Vector2(10, 336)
+position = Vector2(129, 309)
+
+[node name="MoveSpeedText" type="RichTextLabel" parent="MoveSpeedUp"]
+offset_right = 92.0
+offset_bottom = 50.0
+fit_content = true
 
 [node name="AtkSpeedUp" type="Node2D" parent="."]
-position = Vector2(10, 324)
+position = Vector2(129, 335)
+
+[node name="AtkSpeedText" type="RichTextLabel" parent="AtkSpeedUp"]
+offset_right = 127.0
+offset_bottom = 40.0
+
+[node name="HealthPool" type="Node2D" parent="."]
+
+[node name="LifeIcon" parent="HealthPool" instance=ExtResource("1_vhn6v")]
+visible = false
+position = Vector2(20, 344)
+
+[node name="LifeIcon2" parent="HealthPool" instance=ExtResource("1_vhn6v")]
+visible = false
+position = Vector2(57, 344)
+
+[node name="LifeIcon3" parent="HealthPool" instance=ExtResource("1_vhn6v")]
+visible = false
+position = Vector2(95, 344)
+
+[node name="ChompPool" type="Node2D" parent="."]
+
+[node name="ChompIcon" parent="ChompPool" instance=ExtResource("2_qtddk")]
+visible = false
+position = Vector2(20, 314)
+
+[node name="ChompIcon2" parent="ChompPool" instance=ExtResource("2_qtddk")]
+visible = false
+position = Vector2(57, 314)
+
+[node name="ChompIcon3" parent="ChompPool" instance=ExtResource("2_qtddk")]
+visible = false
+position = Vector2(95, 314)

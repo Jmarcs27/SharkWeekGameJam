@@ -6,6 +6,10 @@ class_name Shork extends Area2D
 @export var hitPoints = 3
 @export var multiShotStacks = 1
 @export var isDead = false
+@export var moveSpeedDelta = 1.1
+@export var atkSpeedDelta = 0.75
+
+signal update_HUD(moveSpeed, attackSpeed, hitPoints, bombCount)
 
 var screenSize # Size of the game window.
 var projectileScene
@@ -62,9 +66,11 @@ func use_bomb():
 	if $BombCooldown.is_stopped() && bombCount > 0:
 		bombCount -= 1
 		for child in get_parent().get_children():
-			if child.is_in_group("Bad"):
+			if child.is_in_group("Bad") && (child.name != "scuba_boss" && child.name != "SmolScuba") :
+				print("Killing " + child.name)
 				child.queue_free()
 		$BombCooldown.start();
+		update_HUD.emit(moveSpeed, attackSpeed, hitPoints, bombCount)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -74,7 +80,9 @@ func _on_body_entered(body: Node2D) -> void:
 		take_damage()
 
 func grant_power_up(powerUp: PowerUp):
+	print("Granting Power UP: ", powerUp.name)
 	powerUp.apply(self)
+	update_HUD.emit(moveSpeed, attackSpeed, hitPoints, bombCount)
 
 func take_damage():
 	if $DamageTimer.is_stopped():
@@ -90,6 +98,7 @@ func take_damage():
 			var tween = create_tween()
 			tween.tween_property(find_child("Sprite"), "modulate", Color(1, 0, 0, 0.9), 0.05)
 			tween.tween_property(find_child("Sprite"), "modulate", Color(1, 1, 1, 1), 1.25)
+		update_HUD.emit(moveSpeed, attackSpeed, hitPoints, bombCount)
 
 
 

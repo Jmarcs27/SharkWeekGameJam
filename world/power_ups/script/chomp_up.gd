@@ -5,5 +5,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func apply(shork: Shork):
-	shork.bombCount += 1
+	if(shork.bombCount < 3):
+		shork.bombCount += 1
 	queue_free()

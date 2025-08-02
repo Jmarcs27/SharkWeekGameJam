@@ -6,5 +6,5 @@ func _ready() -> void:
 	$AnimatedSprite2D.play()
 
 func apply(shork: Shork):
-	shork.attackSpeed *= 0.75
+	shork.attackSpeed *= shork.atkSpeedDelta
 	queue_free()

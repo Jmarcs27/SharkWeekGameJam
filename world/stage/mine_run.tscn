@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbbfylpje5lb8"]
+[gd_scene load_steps=13 format=3 uid="uid://bbbfylpje5lb8"]
 
 [ext_resource type="Script" uid="uid://dixl54wta0pj6" path="res://world/stage/mine_spawns.gd" id="1_nyl2s"]
 [ext_resource type="Shader" uid="uid://bdygvh45s4amo" path="res://world/stage/mine_run_background.gdshader" id="2_a4jwl"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b26jk3tnas0ft" path="res://enemies/mini_boss/smol_scuba.tscn" id="4_dvm6u"]
 [ext_resource type="Texture2D" uid="uid://nb2cknghlw2f" path="res://assets/Underwater_Cave.png" id="4_yl1or"]
 [ext_resource type="PackedScene" uid="uid://gp2due8ffj04" path="res://enemies/scuba_boss/scuba_boss.tscn" id="7_a4jwl"]
+[ext_resource type="PackedScene" uid="uid://10kkwgpgd7kd" path="res://player/hud/hud.tscn" id="8_jt1le"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jt1le"]
 shader = ExtResource("2_a4jwl")
@@ -154,5 +155,8 @@ shape = SubResource("RectangleShape2D_jt1le")
 [node name="scuba_boss" parent="." instance=ExtResource("7_a4jwl")]
 position = Vector2(0, 400)
 
+[node name="Hud" parent="." instance=ExtResource("8_jt1le")]
+
+[connection signal="update_HUD" from="Shork" to="Hud" method="_on_shork_update_hud"]
 [connection signal="timeout" from="MineSpawnTimer" to="MineSpawns" method="_on_mine_spawn_timer_timeout"]
 [connection signal="timeout" from="DebrisSpawnTimer" to="DebrisSpawns" method="_on_debris_spawn_timer_timeout"]

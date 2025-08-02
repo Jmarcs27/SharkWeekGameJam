@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlyb8xdrqfvf"]
+[gd_scene load_steps=4 format=3 uid="uid://dlyb8xdrqfvf"]
 
 [ext_resource type="Texture2D" uid="uid://v2wvxngdofvf" path="res://assets/Chomp-Up.png" id="1_g33ra"]
+[ext_resource type="Shader" uid="uid://jhipgxgx5vbh" path="res://assets/shaders/shine.gdshader" id="1_v6iqd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f6sna"]
+shader = ExtResource("1_v6iqd")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.01
 
 [node name="ChompIcon" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_f6sna")
+scale = Vector2(1.4, 1.4)
 texture = ExtResource("1_g33ra")

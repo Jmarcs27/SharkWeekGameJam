@@ -1,3 +1,16 @@
-[gd_scene format=3 uid="uid://dsxsenktopijk"]
+[gd_scene load_steps=4 format=3 uid="uid://dsxsenktopijk"]
+
+[ext_resource type="Shader" uid="uid://jhipgxgx5vbh" path="res://assets/shaders/shine.gdshader" id="1_iqnnm"]
+[ext_resource type="Texture2D" uid="uid://bh67al30wn8fe" path="res://assets/GoldFish.png" id="1_ykgmm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4aq0n"]
+shader = ExtResource("1_iqnnm")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.01
 
 [node name="LifeIcon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4aq0n")
+texture = ExtResource("1_ykgmm")
