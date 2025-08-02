@@ -1,10 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmrgii22fexoh"]
+[gd_scene load_steps=9 format=3 uid="uid://cmrgii22fexoh"]
 
 [ext_resource type="Script" uid="uid://xrx0gp3r061i" path="res://menu.gd" id="1_ia0g5"]
+[ext_resource type="Shader" uid="uid://ddrjfye5n2btp" path="res://assets/shaders/start_menu.gdshader" id="1_ppfnh"]
 [ext_resource type="Shader" uid="uid://bdygvh45s4amo" path="res://world/stage/mine_run_background.gdshader" id="1_v2mkm"]
 [ext_resource type="Texture2D" uid="uid://nb2cknghlw2f" path="res://assets/Underwater_Cave.png" id="2_ctwoq"]
 [ext_resource type="PackedScene" uid="uid://bbbfylpje5lb8" path="res://world/stage/mine_run.tscn" id="2_vpdu5"]
-[ext_resource type="Texture2D" uid="uid://d0ugx7lki7a4c" path="res://assets/Button.png" id="5_ctwoq"]
+[ext_resource type="Texture2D" uid="uid://ckidsdrw37yt0" path="res://assets/Button_Hover.png" id="6_ppfnh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7boi2"]
+shader = ExtResource("1_ppfnh")
+shader_parameter/background_color = Color(0.3, 0.2, 0.8, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ppfnh"]
 shader = ExtResource("1_v2mkm")
@@ -12,6 +17,12 @@ shader_parameter/direction = Vector2(1, 0)
 shader_parameter/speed_scale = 0.05
 
 [node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_7boi2")
+offset_right = 640.0
+offset_bottom = 359.0
+color = Color(0, 0.447059, 1, 1)
 
 [node name="CaveBackground" type="Sprite2D" parent="."]
 texture_repeat = 2
@@ -38,7 +49,7 @@ flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Menu/Start"]
 position = Vector2(162, 80)
-texture = ExtResource("5_ctwoq")
+texture = ExtResource("6_ppfnh")
 
 [node name="Settings" type="Button" parent="Menu"]
 offset_left = 240.0
@@ -52,7 +63,7 @@ flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Menu/Settings"]
 position = Vector2(162, 80)
-texture = ExtResource("5_ctwoq")
+texture = ExtResource("6_ppfnh")
 
 [node name="Quit" type="Button" parent="Menu"]
 offset_left = 240.0
@@ -67,7 +78,7 @@ flat = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Menu/Quit"]
 position = Vector2(162, 80)
-texture = ExtResource("5_ctwoq")
+texture = ExtResource("6_ppfnh")
 
 [connection signal="mouse_entered" from="Menu/Start" to="Menu" method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Start" to="Menu" method="_on_start_mouse_exited"]

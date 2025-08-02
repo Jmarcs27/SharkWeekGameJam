@@ -48,15 +48,15 @@ func _on_start_pressed():
 
 ########## Handles Button Hovering ##########
 func _on_start_mouse_entered():
-	$Start/Sprite2D.texture = hoverButton
-func _on_start_mouse_exited():
 	$Start/Sprite2D.texture = normalButton
+func _on_start_mouse_exited():
+	$Start/Sprite2D.texture = hoverButton
 func _on_settings_mouse_entered():
-	$Settings/Sprite2D.texture = hoverButton
-func _on_settings_mouse_exited():
 	$Settings/Sprite2D.texture = normalButton
+func _on_settings_mouse_exited():
+	$Settings/Sprite2D.texture = hoverButton
 func _on_quit_mouse_entered():
-	$Quit/Sprite2D.texture = hoverButton
-func _on_quit_mouse_exited():
 	$Quit/Sprite2D.texture = normalButton
+func _on_quit_mouse_exited():
+	$Quit/Sprite2D.texture = hoverButton
 #############################################
