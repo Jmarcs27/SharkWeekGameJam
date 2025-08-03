@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/resizable=false
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
 window/main_scene="uid://beaoi6sc745e1"
 window/canvas_textures/default_texture_filter=1
 
@@ -73,3 +78,4 @@ bomb={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true

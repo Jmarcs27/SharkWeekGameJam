@@ -9,6 +9,7 @@ var new_scene : Node2D
 func _ready():
 	# Make node functin while the game is paused
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	DisplayServer.window_set_size(Vector2i(1280, 720))
 
 func pause_game(paused: bool):
 	print("Game Paused set to: ", paused)
@@ -75,3 +76,19 @@ func _on_quit_mouse_entered():
 func _on_quit_mouse_exited():
 	$Quit/Sprite2D.texture = hoverButton
 #############################################
+
+# Screen Size Changed
+func resize_screen(value):
+	DisplayServer.window_set_size(Vector2i(640*value, 360*value))
+func _on_screen_size_one_pressed():
+	resize_screen(1)
+	$VBoxContainer/ScreenSizeTwo.button_pressed = false
+	$VBoxContainer/ScreenSizeThree.button_pressed = false
+func _on_screen_size_two_pressed():
+	resize_screen(2)
+	$VBoxContainer/ScreenSizeOne.button_pressed = false
+	$VBoxContainer/ScreenSizeThree.button_pressed = false
+func _on_screen_size_three_pressed():
+	resize_screen(3)
+	$VBoxContainer/ScreenSizeTwo.button_pressed = false
+	$VBoxContainer/ScreenSizeOne.button_pressed = false
