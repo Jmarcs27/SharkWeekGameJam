@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bjshmkcnuu303"
+path="res://.godot/imported/The Vivisectors - Werewolf's Dungeon.mp3-3b709ab264df61c7b7e8ef7d356619be.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/The Vivisectors - Werewolf's Dungeon.mp3"
+dest_files=["res://.godot/imported/The Vivisectors - Werewolf's Dungeon.mp3-3b709ab264df61c7b7e8ef7d356619be.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

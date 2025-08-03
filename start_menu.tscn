@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmrgii22fexoh"]
+[gd_scene load_steps=19 format=3 uid="uid://cmrgii22fexoh"]
 
 [ext_resource type="Script" uid="uid://xrx0gp3r061i" path="res://menu.gd" id="1_ia0g5"]
 [ext_resource type="Shader" uid="uid://ddrjfye5n2btp" path="res://assets/shaders/start_menu.gdshader" id="1_ppfnh"]
@@ -7,6 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://bbbfylpje5lb8" path="res://world/stage/mine_run.tscn" id="2_vpdu5"]
 [ext_resource type="Texture2D" uid="uid://ckidsdrw37yt0" path="res://assets/Button_Hover.png" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://4knaraiybxmy" path="res://assets/Bubble.png" id="7_7boi2"]
+[ext_resource type="AudioStream" uid="uid://i10dkrg1vmf6" path="res://assets/Sounds/MenuMusic.mp3" id="8_jxkec"]
+[ext_resource type="AudioStream" uid="uid://deoi3m00rbj5o" path="res://assets/Sounds/BossMusic.mp3" id="9_ld0yp"]
+[ext_resource type="AudioStream" uid="uid://daknlg23c6shr" path="res://assets/Sounds/BubbleShot.wav" id="10_w8jvl"]
+[ext_resource type="AudioStream" uid="uid://cfjuehs4xnjhk" path="res://assets/Sounds/BossHit.mp3" id="11_8y6t8"]
+[ext_resource type="AudioStream" uid="uid://ciscdbjxgwm6l" path="res://assets/Sounds/BombShot.wav" id="12_4tuia"]
+[ext_resource type="AudioStream" uid="uid://d3iubjufkwms0" path="res://assets/Sounds/Victory.wav" id="13_j1xkj"]
+[ext_resource type="AudioStream" uid="uid://b3pjjh5rncyls" path="res://assets/Sounds/Loss.wav" id="14_jqt8n"]
+[ext_resource type="AudioStream" uid="uid://psmrbiu0obsc" path="res://assets/Sounds/HarpoonShot.wav" id="15_0wvwj"]
+[ext_resource type="AudioStream" uid="uid://byy28qwnstpyv" path="res://assets/Sounds/PlayerDamaged.mp3" id="16_ld0yp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7boi2"]
 shader = ExtResource("1_ppfnh")
@@ -114,12 +123,14 @@ text = "Volume"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Volume2" type="HSlider" parent="Menu/VBoxContainer"]
+[node name="VolumeSlider" type="HSlider" parent="Menu/VBoxContainer"]
 layout_mode = 2
 theme_override_icons/grabber = ExtResource("7_7boi2")
 theme_override_icons/grabber_highlight = ExtResource("7_7boi2")
 theme_override_icons/grabber_disabled = ExtResource("7_7boi2")
 theme_override_icons/tick = ExtResource("7_7boi2")
+max_value = 2.0
+step = 0.0
 
 [node name="ScreenSizeLabel" type="Label" parent="Menu/VBoxContainer"]
 layout_mode = 2
@@ -147,6 +158,39 @@ theme_override_icons/tick = ExtResource("7_7boi2")
 step = 25.0
 value = 25.0
 
+[node name="AudioManager" type="Node2D" parent="Menu" groups=["AudioManager"]]
+
+[node name="MenuMusic" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("8_jxkec")
+
+[node name="BossMusic" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("9_ld0yp")
+volume_db = -10.0
+
+[node name="BubbleShot" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("10_w8jvl")
+
+[node name="BossHit" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("11_8y6t8")
+
+[node name="BombShot" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("12_4tuia")
+volume_db = 15.0
+
+[node name="Victory" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("13_j1xkj")
+
+[node name="Loss" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("14_jqt8n")
+
+[node name="HarpoonShot" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("15_0wvwj")
+volume_db = -10.0
+
+[node name="PlayerDamaged" type="AudioStreamPlayer2D" parent="Menu/AudioManager"]
+stream = ExtResource("16_ld0yp")
+volume_db = 5.0
+
 [connection signal="mouse_entered" from="Menu/Start" to="Menu" method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Start" to="Menu" method="_on_start_mouse_exited"]
 [connection signal="pressed" from="Menu/Start" to="Menu" method="_on_start_pressed"]
@@ -156,6 +200,7 @@ value = 25.0
 [connection signal="mouse_entered" from="Menu/Quit" to="Menu" method="_on_quit_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Quit" to="Menu" method="_on_quit_mouse_exited"]
 [connection signal="pressed" from="Menu/Quit" to="Menu" method="_on_quit_pressed"]
+[connection signal="value_changed" from="Menu/VBoxContainer/VolumeSlider" to="Menu" method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="Menu/VBoxContainer/ScreenSizeOne" to="Menu" method="_on_screen_size_one_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/ScreenSizeTwo" to="Menu" method="_on_screen_size_two_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer/ScreenSizeThree" to="Menu" method="_on_screen_size_three_pressed"]

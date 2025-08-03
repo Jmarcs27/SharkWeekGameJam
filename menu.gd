@@ -4,13 +4,19 @@ extends Node2D
 @onready var normalButton = preload("res://assets/Button.png")
 @onready var hoverButton = preload("res://assets/Button_Hover.png")
 var gamePaused: bool = false
+var gameOver: bool = false
 var new_scene : Node2D
 
 func _ready():
+	var master_bus_index = AudioServer.get_bus_index("Master")
+	var db = db_to_linear(AudioServer.get_bus_volume_db(master_bus_index))
+	$VBoxContainer/VolumeSlider.value = db
 	# Make node functin while the game is paused
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
 	DisplayServer.window_set_size(Vector2i(1280, 720))
-
+	$AudioManager/MenuMusic.play()
+	
+	
 func pause_game(paused: bool):
 	print("Game Paused set to: ", paused)
 	get_tree().paused = paused
@@ -36,6 +42,10 @@ func _on_start_pressed():
 	pause_game(false)
 	$Dead.hide()
 	$Win.hide()
+	gameOver = false
+	if (!$AudioManager/MenuMusic.is_playing()):
+		$AudioManager/BossMusic.stop()
+		$AudioManager/MenuMusic.play()
 	
 	# Starts the game if in the main menu
 	if (new_scene == null): 
@@ -53,14 +63,25 @@ func _on_settings_pressed():
 	pass # Replace with function body.
 	
 func game_over():
+	gameOver = true
+	$AudioManager/BossMusic.stop()
+	$AudioManager/MenuMusic.stop()
+	$AudioManager/Loss.play()
 	self.show()
 	$Dead.show()
 	print("GameOver")
 	
 func victory():
+	gameOver = true
+	$AudioManager/BossMusic.stop()
+	$AudioManager/Victory.play()
 	self.show()
 	$Win.show()
 	print("Victory!")
+
+func switch_tracks():
+	$AudioManager/MenuMusic.stop()
+	$AudioManager/BossMusic.play()
 
 ########## Handles Button Hovering ##########
 func _on_start_mouse_entered():
@@ -92,3 +113,9 @@ func _on_screen_size_three_pressed():
 	resize_screen(3)
 	$VBoxContainer/ScreenSizeTwo.button_pressed = false
 	$VBoxContainer/ScreenSizeOne.button_pressed = false
+
+# Sets the master volume
+func _on_volume_slider_value_changed(value):
+	var master_bus_index = AudioServer.get_bus_index("Master")
+	var db = linear_to_db(value)
+	AudioServer.set_bus_volume_db(master_bus_index, db)

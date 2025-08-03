@@ -35,6 +35,7 @@ PowerUp="PowerUps and Heals"
 Wall=""
 Player=""
 Menu=""
+AudioManager=""
 
 [input]
 

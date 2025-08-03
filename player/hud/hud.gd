@@ -1,17 +1,19 @@
 extends Node2D
 
 #@onready var shork = get_node("/root").get_child(0).get_node("Shork")
-@onready var shork = get_node("%Shork") # Name, recursive, owned_by_parent
+@onready var shork = get_tree().get_nodes_in_group("Player")[0] # Name, recursive, owned_by_parent
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	updateText()
 	updateImages()
 
 func updateText():
+	if (shork == null): return
 	$MoveSpeedUp/MoveSpeedText.text = "Move: " + str(shork.moveSpeed)
 	$AtkSpeedUp/AtkSpeedText.text = "AtkSpd: " + str(shork.attackSpeed) + "s"
 
 func updateImages():
+	if (shork == null): return
 	var i = 0
 	print("HitPoints: ", shork.hitPoints, " bombCount: ", shork.bombCount)
 	while i < 3:

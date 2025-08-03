@@ -70,6 +70,7 @@ isCasting = false
 growthTime = 0.3
 
 [node name="TopLaser" parent="." instance=ExtResource("3_7waya")]
+process_mode = 4
 position = Vector2(474, -10)
 rotation = 1.5708
 scale = Vector2(5, 1)

@@ -1,8 +1,9 @@
 extends Node
 
-@export var bossBaseHealth = 2
+@export var bossBaseHealth = 150
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
-@onready var player = get_node("%Shork")
+@export var debrisTimer : Timer
+@onready var player = get_tree().get_nodes_in_group("Player")[0]
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
 
 # Defined the boss phases and set constants in a dictionary
@@ -131,6 +132,7 @@ func phase_change():
 			pass
 		DAMAGED:
 			print("Boss has entered the Dead Phase")
+			debrisTimer.stop()
 			combatPhase = DEAD
 			tween.tween_property(self, "position", Vector2 (0, 400), 1)
 			for node in get_tree().get_nodes_in_group("Menu"): node.victory()

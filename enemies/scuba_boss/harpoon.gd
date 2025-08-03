@@ -3,14 +3,15 @@ extends Node2D
 @export var shootSpeed = 300
 # Used for children indexing
 enum {BOLT, HARPOON}
-@onready var player = get_parent().get_parent().get_node("%Shork")
+@onready var player = get_tree().get_nodes_in_group("Player")[0]
 @onready var bolt = get_child(BOLT)
 @onready var harpoon = get_child(HARPOON)
+@onready var audioManager = get_tree().get_nodes_in_group("AudioManager")[0]
 
 var boltDir : Vector2 = Vector2.LEFT
 var aiming = false
 var shooting = false
-	
+
 func _physics_process(delta: float):
 	if (shooting):
 		bolt.translate(boltDir * delta * shootSpeed)
@@ -34,6 +35,7 @@ func prepare_shot(fromBoss: bool) -> void:
 		# Waits for tween to end and shoots the bolt
 	await get_tree().create_timer(2.5).timeout
 	shooting = true
+	audioManager.get_node("HarpoonShot").play()
 	reload(fromBoss)
 	
 # Hides the harpoon for cleanup

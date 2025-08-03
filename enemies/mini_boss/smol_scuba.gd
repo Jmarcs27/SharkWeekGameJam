@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var bossHealth: int = 50
+@export var bossHealth: int = 60
 @export var moveSpeed: int = 100
 
 var shoot: bool = false
@@ -13,6 +13,7 @@ var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
 @onready var debrisSpawner = get_node("../DebrisSpawns")
 @onready var mineTimer = get_node("../MineSpawnTimer")
 @onready var debrisTimer = get_node("../DebrisSpawnTimer")
+@onready var menu = get_tree().get_nodes_in_group("Menu")[0]
 
 var min_x
 var max_x
@@ -72,6 +73,7 @@ func _on_area_entered(area: Area2D) -> void:
 			scubaBoss.enable_boss()
 			get_node("../MineSpawnTimer").stop()
 			get_node("../DebrisSpawnTimer").wait_time = 2
+			menu.switch_tracks()
 			queue_free()
 			#TODO: Add death animation
 		else:

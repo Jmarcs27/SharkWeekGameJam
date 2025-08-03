@@ -1,13 +1,15 @@
 class_name Shork extends Area2D
 
 @export var moveSpeed = 400 # How fast the player will move (pixels/sec).
-@export var attackSpeed = 1.0
+@export var attackSpeed = 0.4
 @export var bombCount = 3
 @export var hitPoints = 3
 @export var multiShotStacks = 1
 @export var isDead = false
 @export var moveSpeedDelta = 1.1
 @export var atkSpeedDelta = 0.75
+@onready var audioManager = get_tree().get_nodes_in_group("AudioManager")[0]
+@onready var menu = get_tree().get_nodes_in_group("Menu")[0]
 
 signal update_HUD(moveSpeed, attackSpeed, hitPoints, bombCount)
 
@@ -61,6 +63,7 @@ func shoot():
 	else:
 		multiShotIter = 0
 	$AtkCooldown.start(attackSpeed)
+	audioManager.get_node("BubbleShot").play()
 
 func use_bomb():
 	if $BombCooldown.is_stopped() && bombCount > 0:
@@ -71,6 +74,7 @@ func use_bomb():
 				child.queue_free()
 		$BombCooldown.start();
 		update_HUD.emit(moveSpeed, attackSpeed, hitPoints, bombCount)
+		audioManager.get_node("BombShot").play()
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -85,9 +89,10 @@ func grant_power_up(powerUp: PowerUp):
 	update_HUD.emit(moveSpeed, attackSpeed, hitPoints, bombCount)
 
 func take_damage():
-	if $DamageTimer.is_stopped():
+	if $DamageTimer.is_stopped() && menu.gameOver == false:
 		print("Ouch")
 		hitPoints -= 1
+		audioManager.get_node("PlayerDamaged").play()
 		$DamageTimer.start()
 		if hitPoints <= 0:
 			print("You Deadge!")
