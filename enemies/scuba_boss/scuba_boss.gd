@@ -133,6 +133,7 @@ func phase_change():
 			print("Boss has entered the Dead Phase")
 			combatPhase = DEAD
 			tween.tween_property(self, "position", Vector2 (0, 400), 1)
+			for node in get_tree().get_nodes_in_group("Menu"): node.victory()
 			tween.tween_callback(queue_free)
 			pass
 #### PHASE RELATED CODE ####

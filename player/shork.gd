@@ -94,6 +94,8 @@ func take_damage():
 			isDead = true
 			$Sprite.stop()
 			$Sprite.flip_v = true
+			# Ends the game
+			for node in get_tree().get_nodes_in_group("Menu"): node.game_over()
 		else:
 			var tween = create_tween()
 			tween.tween_property(find_child("Sprite"), "modulate", Color(1, 0, 0, 0.9), 0.05)

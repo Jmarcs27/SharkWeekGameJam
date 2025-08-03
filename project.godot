@@ -29,6 +29,7 @@ Bullet=""
 PowerUp="PowerUps and Heals"
 Wall=""
 Player=""
+Menu=""
 
 [input]
 

@@ -33,6 +33,8 @@ func _on_start_pressed():
 		print("Error: Game scene is null")
 		return
 	pause_game(false)
+	$Dead.hide()
+	$Win.hide()
 	
 	# Starts the game if in the main menu
 	if (new_scene == null): 
@@ -48,6 +50,16 @@ func _on_start_pressed():
 func _on_settings_pressed():
 	# TODO: Add settings menu
 	pass # Replace with function body.
+	
+func game_over():
+	self.show()
+	$Dead.show()
+	print("GameOver")
+	
+func victory():
+	self.show()
+	$Win.show()
+	print("Victory!")
 
 ########## Handles Button Hovering ##########
 func _on_start_mouse_entered():

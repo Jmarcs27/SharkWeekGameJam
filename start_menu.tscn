@@ -31,7 +31,7 @@ position = Vector2(1078, 179)
 scale = Vector2(1, 0.997006)
 texture = ExtResource("2_ctwoq")
 
-[node name="Menu" type="Node2D" parent="."]
+[node name="Menu" type="Node2D" parent="." groups=["Menu"]]
 process_mode = 3
 z_index = 1
 script = ExtResource("1_ia0g5")
@@ -82,18 +82,21 @@ texture = ExtResource("6_ppfnh")
 
 [node name="Dead" type="RichTextLabel" parent="Menu"]
 visible = false
-offset_right = 97.0
-offset_bottom = 44.0
-text = "Shark Down"
+offset_left = 71.0
+offset_top = 146.0
+offset_right = 168.0
+offset_bottom = 190.0
+text = "Shork Down"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Win" type="RichTextLabel" parent="Menu"]
 visible = false
-offset_top = -1.0
-offset_right = 202.0
-offset_bottom = 61.0
-text = "Congradulations! You Have Saved the Sea!"
+offset_left = 26.0
+offset_top = 136.0
+offset_right = 228.0
+offset_bottom = 198.0
+text = "Congratulations! You Have Saved the Sea!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
