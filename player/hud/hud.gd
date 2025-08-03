@@ -8,6 +8,7 @@ func _ready() -> void:
 	updateImages()
 
 func updateText():
+	print("Shork!: ", shork)
 	if (shork == null): return
 	$MoveSpeedUp/MoveSpeedText.text = "Move: " + str(shork.moveSpeed)
 	$AtkSpeedUp/AtkSpeedText.text = "AtkSpd: " + str(shork.attackSpeed) + "s"

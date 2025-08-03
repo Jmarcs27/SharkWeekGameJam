@@ -54,7 +54,7 @@ func _on_start_pressed():
 		$Start.text = "Restart"
 	# Restart the game if in the pause menu
 	else:
-		new_scene.queue_free()
+		new_scene.free()
 		new_scene = gameScene.instantiate()
 		get_tree().root.get_child(0).add_child(new_scene)
 

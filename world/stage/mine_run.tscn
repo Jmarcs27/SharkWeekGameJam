@@ -152,6 +152,7 @@ scale = Vector2(1.25641, 1.11687)
 shape = SubResource("RectangleShape2D_jt1le")
 
 [node name="Hud" parent="." instance=ExtResource("8_jt1le")]
+z_index = 6
 
 [connection signal="update_HUD" from="Shork" to="Hud" method="_on_shork_update_hud"]
 [connection signal="timeout" from="MineSpawnTimer" to="MineSpawns" method="_on_mine_spawn_timer_timeout"]
