@@ -11,6 +11,7 @@ extends Node2D
 var tween : Tween = null
 var rayMaxLength = 750
 var raySpeed = 100
+var laserPos = Vector2.ZERO
 
 func _ready():
 	laser.collide_with_areas = true
@@ -31,12 +32,14 @@ func _physics_process(delta: float):
 	# Checks for collision only with player
 	while (laser.is_colliding()):
 		var obj = laser.get_collider()
-		if (obj.is_in_group("Bad")):
-			laser.add_exception( obj )
-		else:
+		if (obj.is_in_group("Player")):
 			laser_end_position = to_local(laser.get_collision_point())
+			if (isCasting): obj.take_damage()
+			laserPos = line2d.points[1]
 			laser.clear_exceptions()
 			break
+		else:
+			laser.add_exception( obj )
 		laser.force_raycast_update()
 	line2d.points[1] = laser_end_position # Sets laser current end point
 
@@ -73,6 +76,7 @@ func disappear() -> void:
 	tween = create_tween()
 	tween.tween_property(line2d, "width", 0.0, growthTime).from_current()
 	tween.tween_callback(line2d.hide) # Hides the line when tween has ended
+	laserPos = Vector2.ZERO
 	pass
 	
 func set_color(newColor: Color) -> void:

@@ -24,7 +24,6 @@ func _input(event):
 		else:
 			pause_game(true)
 
-
 func _on_quit_pressed():
 	print("Game Quit")
 	get_tree().quit()
@@ -45,6 +44,10 @@ func _on_start_pressed():
 		new_scene.queue_free()
 		new_scene = gameScene.instantiate()
 		get_tree().root.get_child(0).add_child(new_scene)
+
+func _on_settings_pressed():
+	# TODO: Add settings menu
+	pass # Replace with function body.
 
 ########## Handles Button Hovering ##########
 func _on_start_mouse_entered():

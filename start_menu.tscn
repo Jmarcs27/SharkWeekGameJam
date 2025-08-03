@@ -80,11 +80,29 @@ flat = true
 position = Vector2(162, 80)
 texture = ExtResource("6_ppfnh")
 
+[node name="Dead" type="RichTextLabel" parent="Menu"]
+visible = false
+offset_right = 97.0
+offset_bottom = 44.0
+text = "Shark Down"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Win" type="RichTextLabel" parent="Menu"]
+visible = false
+offset_top = -1.0
+offset_right = 202.0
+offset_bottom = 61.0
+text = "Congradulations! You Have Saved the Sea!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="mouse_entered" from="Menu/Start" to="Menu" method="_on_start_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Start" to="Menu" method="_on_start_mouse_exited"]
 [connection signal="pressed" from="Menu/Start" to="Menu" method="_on_start_pressed"]
 [connection signal="mouse_entered" from="Menu/Settings" to="Menu" method="_on_settings_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Settings" to="Menu" method="_on_settings_mouse_exited"]
+[connection signal="pressed" from="Menu/Settings" to="Menu" method="_on_settings_pressed"]
 [connection signal="mouse_entered" from="Menu/Quit" to="Menu" method="_on_quit_mouse_entered"]
 [connection signal="mouse_exited" from="Menu/Quit" to="Menu" method="_on_quit_mouse_exited"]
 [connection signal="pressed" from="Menu/Quit" to="Menu" method="_on_quit_pressed"]

@@ -1,6 +1,6 @@
 extends Node
 
-@export var bossBaseHealth = 50
+@export var bossBaseHealth = 2
 @export var shootPercent = 0.75 # Chance for harpoon to shoot
 @onready var player = get_node("%Shork")
 var harpoonScene = preload("res://enemies/scuba_boss/harpoon.tscn")
@@ -78,10 +78,11 @@ func shoot_main_laser(shootTime : float):
 	shoot_lasers()
 	
 func shoot_lasers() -> void:
-	print("Firing Laser")
-	child[TLASER].set_casting(true)
-	await get_tree().create_timer(2).timeout
-	child[TLASER].set_casting(false)
+	return # Disabling to reduce difficulty
+	#print("Firing Laser")
+	#child[TLASER].set_casting(true)
+	#await get_tree().create_timer(2).timeout
+	#child[TLASER].set_casting(false)
 
 # Player has shot the boss
 func _on_collision_zone_area_entered(area):
@@ -131,9 +132,8 @@ func phase_change():
 		DAMAGED:
 			print("Boss has entered the Dead Phase")
 			combatPhase = DEAD
-			set_phasing()
-			queue_free()
-			# TODO: Add death animation
+			tween.tween_property(self, "position", Vector2 (0, 400), 1)
+			tween.tween_callback(queue_free)
 			pass
 #### PHASE RELATED CODE ####
 

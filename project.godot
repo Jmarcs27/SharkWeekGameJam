@@ -28,6 +28,7 @@ Bad="Something that hurts the player"
 Bullet=""
 PowerUp="PowerUps and Heals"
 Wall=""
+Player=""
 
 [input]
 
