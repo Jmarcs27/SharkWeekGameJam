@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbbfylpje5lb8"]
+[gd_scene load_steps=12 format=3 uid="uid://bbbfylpje5lb8"]
 
 [ext_resource type="Script" uid="uid://dixl54wta0pj6" path="res://world/stage/mine_spawns.gd" id="1_nyl2s"]
 [ext_resource type="Shader" uid="uid://bdygvh45s4amo" path="res://world/stage/mine_run_background.gdshader" id="2_a4jwl"]
@@ -19,9 +19,6 @@ size = Vector2(509.721, 55.5122)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a4jwl"]
 size = Vector2(290, 233)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jt1le"]
-size = Vector2(123.368, 342.027)
 
 [node name="MiniBoss" type="Node2D"]
 
@@ -138,18 +135,6 @@ autostart = true
 [node name="scuba_boss" parent="." node_paths=PackedStringArray("debrisTimer") instance=ExtResource("7_a4jwl")]
 position = Vector2(0, 400)
 debrisTimer = NodePath("../DebrisSpawnTimer")
-
-[node name="Wall" type="Area2D" parent="scuba_boss" groups=["Wall"]]
-visible = false
-position = Vector2(-1, -403)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CeilingHitbox" type="CollisionShape2D" parent="scuba_boss/Wall" groups=["Wall"]]
-position = Vector2(571.5, 180)
-rotation = -3.14159
-scale = Vector2(1.25641, 1.11687)
-shape = SubResource("RectangleShape2D_jt1le")
 
 [node name="Hud" parent="." instance=ExtResource("8_jt1le")]
 
