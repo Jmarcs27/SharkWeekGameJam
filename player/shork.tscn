@@ -26,8 +26,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_diojf"]
-radius = 31.0
-height = 190.0
+radius = 25.0
+height = 170.0
 
 [node name="Shork" type="Area2D" groups=["Player"]]
 position = Vector2(1, 0)

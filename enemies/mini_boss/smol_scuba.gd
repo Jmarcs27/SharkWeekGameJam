@@ -71,6 +71,7 @@ func _on_area_entered(area: Area2D) -> void:
 			print("Boss has entered the Dead Phase")
 			scubaBoss.enable_boss()
 			get_node("../MineSpawnTimer").stop()
+			get_node("../DebrisSpawnTimer").wait_time = 2
 			queue_free()
 			#TODO: Add death animation
 		else:

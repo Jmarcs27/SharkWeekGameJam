@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dk7sk2q2v5i8f" path="res://assets/Sea_Mine.png" id="2_cykwi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ifd5"]
-radius = 91.0
+radius = 67.1863
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vng0f"]
 radius = 91.0
